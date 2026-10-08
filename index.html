@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="kk">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -292,7 +292,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     <nav id="nav" aria-label="Main"></nav>
     <div class="tools">
       <div class="langsw" role="group" aria-label="Language">
-        <button data-act="lang" data-l="ru">RU</button><button data-act="lang" data-l="kz">KZ</button>
+        <button data-act="lang" data-l="kz">KZ</button><button data-act="lang" data-l="ru">RU</button>
       </div>
       <label class="rolesel"><span id="roleLbl"></span><select id="roleSel"></select></label>
     </div>
@@ -791,7 +791,7 @@ const store = {
   set(k,v){try{localStorage.setItem('itfaq.'+k,JSON.stringify(v))}catch(e){}}
 };
 const state = {
-  lang: store.get('lang', (navigator.language||'').toLowerCase().startsWith('kk') ? 'kz' : 'ru'),
+  lang: store.get('lang', 'kz'),
   role: store.get('role','emp'),
   period: 'week'
 };
