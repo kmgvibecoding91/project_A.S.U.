@@ -1,0 +1,1339 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IT F.A.Q. — база знаний ИТ</title>
+<meta name="description" content="Корпоративный портал базы знаний ИТ: инструкции, топ проблем, заявки в SMAX, AI-ассистент. Прототип по PRD v1.0.">
+<style>
+:root{
+  --bg:#f4f6f9;--surface:#fff;--surface2:#eef2f6;--text:#16202a;--muted:#5a6775;--line:#dde3ea;
+  --brand:#0b5cab;--brand2:#084a8c;--brand-soft:#e6f0fa;--on-brand:#fff;--accent:#00968f;
+  --ok:#1b7f4c;--ok-soft:#e4f4eb;--warn:#8f5600;--warn-soft:#fff3dc;--bad:#c0392b;--bad-soft:#fdecea;
+  --shadow:0 1px 2px rgba(16,24,40,.05),0 6px 20px rgba(16,24,40,.06);--r:14px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1419;--surface:#171e26;--surface2:#1f2832;--text:#e6ebf0;--muted:#9aa7b4;--line:#2b3641;
+  --brand:#4d9bf0;--brand2:#7db6f5;--brand-soft:#16304d;--on-brand:#06111d;--accent:#3cc7bd;
+  --ok:#4cc38a;--ok-soft:#14301f;--warn:#f0b453;--warn-soft:#33270f;--bad:#f2786d;--bad-soft:#3a1b19;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0f1419;--surface:#171e26;--surface2:#1f2832;--text:#e6ebf0;--muted:#9aa7b4;--line:#2b3641;
+  --brand:#4d9bf0;--brand2:#7db6f5;--brand-soft:#16304d;--on-brand:#06111d;--accent:#3cc7bd;
+  --ok:#4cc38a;--ok-soft:#14301f;--warn:#f0b453;--warn-soft:#33270f;--bad:#f2786d;--bad-soft:#3a1b19;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;overflow-x:hidden}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3{line-height:1.25;margin:0 0 .5em}
+h1{font-size:30px}h2{font-size:20px}h3{font-size:16px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px;border-radius:6px}
+mark{background:#ffe58a;color:inherit;border-radius:3px;padding:0 1px}
+@media (prefers-color-scheme:dark){mark{background:#6b5a12}}
+
+/* header */
+header.top{position:sticky;top:0;z-index:40;background:var(--surface);border-bottom:1px solid var(--line)}
+.hrow{display:flex;align-items:center;gap:14px;min-height:62px}
+.logo{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none!important;flex:none}
+.lmark{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--accent));color:#fff;display:grid;place-items:center;font-weight:800;letter-spacing:.5px}
+.logo b{display:block;font-size:16px}.logo small{display:block;color:var(--muted);font-size:12px;margin-top:-2px}
+nav#nav{display:flex;gap:2px;flex:1;flex-wrap:wrap}
+nav#nav a{padding:8px 11px;border-radius:9px;color:var(--text);font-size:14px;white-space:nowrap}
+nav#nav a:hover{background:var(--surface2);text-decoration:none}
+nav#nav a.active{background:var(--brand-soft);color:var(--brand);font-weight:600}
+.tools{display:flex;align-items:center;gap:10px;flex:none}
+.langsw{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.langsw button{border:0;background:transparent;color:var(--muted);padding:6px 10px;font-weight:600;cursor:pointer;font-size:13px}
+.langsw button.on{background:var(--brand);color:var(--on-brand)}
+.rolesel{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+select,input,textarea{font:inherit;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:7px 10px}
+textarea{width:100%;resize:vertical}
+.menu-btn{display:none;border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:9px;padding:6px 10px;font-size:18px;cursor:pointer;margin-left:auto}
+@media (max-width:1020px){
+  .hrow{flex-wrap:wrap;padding:8px 0}
+  .menu-btn{display:block}
+  nav#nav{display:none;order:5;flex-basis:100%;flex-direction:column;padding-bottom:8px}
+  header.open nav#nav{display:flex}
+  .tools{order:4;flex-basis:100%;justify-content:space-between}
+}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);background:var(--surface);color:var(--text);padding:9px 16px;border-radius:10px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none!important;line-height:1.2}
+.btn:hover{background:var(--surface2)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.btn.primary:hover{background:var(--brand2);border-color:var(--brand2)}
+.btn.ghost{background:transparent}
+.btn.sm{padding:6px 11px;font-size:13px;border-radius:8px}
+.btn.ok{background:var(--ok-soft);border-color:transparent;color:var(--ok)}
+.btn.bad{background:var(--bad-soft);border-color:transparent;color:var(--bad)}
+.btn[aria-pressed="true"]{outline:2px solid var(--brand)}
+
+/* search */
+.sbox{position:relative;display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:5px 5px 5px 12px;box-shadow:var(--shadow)}
+.sbox:focus-within{border-color:var(--brand)}
+.sbox input{flex:1;border:0;background:transparent;padding:8px 4px;min-width:0;outline:none}
+.sbox .sico{opacity:.6}
+.sbox.big{padding:8px 8px 8px 18px;border-radius:16px}
+.sbox.big input{font-size:18px;padding:10px 4px}
+.ac{position:absolute;left:0;right:0;top:calc(100% + 6px);background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;z-index:30;text-align:left}
+.ac a,.ac .acx{display:flex;justify-content:space-between;gap:12px;padding:10px 14px;color:var(--text);text-decoration:none;border-bottom:1px solid var(--line)}
+.ac a:last-child{border-bottom:0}
+.ac a.sel,.ac a:hover{background:var(--brand-soft)}
+.ac small{color:var(--muted);white-space:nowrap}
+.subsearch{background:var(--surface2);border-bottom:1px solid var(--line);padding:10px 0}
+.subsearch .sbox{box-shadow:none}
+
+/* hero */
+.hero{background:radial-gradient(1200px 300px at 10% -40%,var(--brand-soft),transparent),linear-gradient(180deg,var(--surface),var(--bg));padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero h1{font-size:36px}
+.hero p{color:var(--muted);font-size:17px;max-width:680px;margin:0 0 20px}
+.hero .sbox{max-width:780px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px;font-size:13px;color:var(--muted)}
+.chip{display:inline-block;padding:5px 11px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--text);font-size:13px}
+.chip:hover{border-color:var(--brand);text-decoration:none}
+
+/* layout pieces */
+main{min-height:60vh;padding-bottom:40px}
+.page{padding:24px 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow)}
+.card+.card{margin-top:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:860px){.grid2,.grid3{grid-template-columns:1fr}}
+.tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:22px}
+@media (max-width:1020px){.tiles{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:600px){.tiles{grid-template-columns:1fr 1fr}}
+.tile{display:block;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;color:var(--text);box-shadow:var(--shadow);transition:transform .12s,border-color .12s}
+.tile:hover{transform:translateY(-2px);border-color:var(--brand);text-decoration:none}
+.tile .ic{font-size:26px}
+.tile b{display:block;margin:6px 0 2px}
+.tile span{font-size:13px;color:var(--muted)}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:10px}
+.sec-head h2{margin:0}
+.toplist{list-style:none;margin:0;padding:0}
+.toplist li a{display:flex;align-items:center;gap:12px;padding:9px 6px;border-bottom:1px solid var(--line);color:var(--text)}
+.toplist li:last-child a{border-bottom:0}
+.toplist li a:hover{background:var(--surface2);text-decoration:none}
+.rank{flex:none;width:26px;height:26px;border-radius:8px;background:var(--surface2);display:grid;place-items:center;font-weight:700;font-size:13px;color:var(--muted)}
+.toplist .tt{flex:1}
+.cnt{font-size:13px;color:var(--muted);white-space:nowrap}
+.trend{font-weight:800;margin-left:4px}
+.trend.up{color:var(--bad)}.trend.down{color:var(--ok)}.trend.flat{color:var(--muted)}
+.badge{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--surface2);color:var(--muted);white-space:nowrap}
+.badge.blue{background:var(--brand-soft);color:var(--brand)}
+.badge.ok{background:var(--ok-soft);color:var(--ok)}
+.badge.warn{background:var(--warn-soft);color:var(--warn)}
+.badge.bad{background:var(--bad-soft);color:var(--bad)}
+.banner{display:flex;gap:12px;align-items:flex-start;background:var(--warn-soft);color:var(--text);border:1px solid color-mix(in srgb,var(--warn) 30%,transparent);border-radius:var(--r);padding:12px 16px;margin-top:20px}
+.banner .x{margin-left:auto;border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:18px}
+.cta{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:16px;background:linear-gradient(120deg,var(--brand-soft),var(--surface));border:1px solid var(--line);border-radius:var(--r);padding:20px 22px}
+.cta h3{margin:0 0 4px;font-size:18px}
+.cta p{margin:0;color:var(--muted)}
+.crumbs{font-size:13px;color:var(--muted);margin-bottom:10px}
+.crumbs a{color:var(--muted)}
+.crumbs span{margin:0 6px}
+
+/* article list */
+.alist{display:grid;gap:10px}
+.aitem{display:block;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;color:var(--text)}
+.aitem:hover{border-color:var(--brand);text-decoration:none}
+.aitem h3{margin:0 0 4px;color:var(--brand);font-size:16px}
+.aitem p{margin:0 0 8px;color:var(--muted);font-size:14px}
+.aitem .row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:12.5px;color:var(--muted)}
+.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:860px){.cats{grid-template-columns:1fr}}
+.catcard{display:block;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;color:var(--text);box-shadow:var(--shadow)}
+.catcard:hover{border-color:var(--brand);text-decoration:none}
+.catcard .h{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.catcard .h .ic{font-size:24px}
+.catcard ul{margin:0;padding-left:18px;color:var(--muted);font-size:13.5px}
+
+/* article */
+.art{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:22px;align-items:start}
+@media (max-width:960px){.art{grid-template-columns:1fr}.aside{order:-1}}
+.art h1{font-size:28px}
+.ameta{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;color:var(--muted);font-size:13px;margin-bottom:12px}
+.asec{scroll-margin-top:80px;padding-top:6px}
+.asec+.asec{margin-top:18px;border-top:1px solid var(--line);padding-top:18px}
+.asec h2{font-size:18px}
+.tldr{background:var(--brand-soft);border-radius:12px;padding:12px 16px;font-size:16px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:0}
+ol.steps li{counter-increment:s;position:relative;padding:10px 0 10px 46px;border-bottom:1px dashed var(--line)}
+ol.steps li:last-child{border-bottom:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:8px;width:32px;height:32px;border-radius:50%;background:var(--brand);color:var(--on-brand);display:grid;place-items:center;font-weight:700}
+.callout{border-radius:12px;padding:12px 16px;margin:14px 0;border-left:4px solid}
+.callout b{display:block;margin-bottom:2px}
+.callout.warn{background:var(--warn-soft);border-color:var(--warn)}
+.callout.tip{background:var(--ok-soft);border-color:var(--ok)}
+.callout.info{background:var(--brand-soft);border-color:var(--brand)}
+dl.errs{margin:0}
+dl.errs dt{font-weight:600;margin-top:10px}
+dl.errs dd{margin:2px 0 0;color:var(--muted)}
+.aside{position:sticky;top:80px;display:grid;gap:12px}
+@media (max-width:960px){.aside{position:static}}
+.toc a{display:block;padding:5px 8px;border-radius:8px;color:var(--text);font-size:14px;cursor:pointer}
+.toc a:hover{background:var(--surface2);text-decoration:none}
+.stat{display:flex;justify-content:space-between;font-size:13.5px;padding:4px 0}
+.bar{height:8px;border-radius:99px;background:var(--surface2);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok);border-radius:99px}
+.rate{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.reasons{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.reasons label{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer;font-size:14px}
+.reasons input{accent-color:var(--brand)}
+.metagrid{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:14px}
+.metagrid dt{color:var(--muted)}.metagrid dd{margin:0}
+
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th,.tbl td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl th{font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+.tblwrap{overflow-x:auto}
+pre.tpl{white-space:pre-wrap;background:var(--surface2);border-radius:10px;padding:12px 14px;font:13px/1.5 Consolas,ui-monospace,monospace;margin:8px 0}
+.example{border-radius:12px;padding:14px 16px;border:1px solid var(--line)}
+.example.bad{background:var(--bad-soft)}.example.good{background:var(--ok-soft)}
+.example h3{margin-bottom:6px}
+
+/* checklist */
+.chk{list-style:none;padding:0;margin:0}
+.chk li{display:flex;gap:10px;align-items:flex-start;padding:9px 4px;border-bottom:1px solid var(--line)}
+.chk li:last-child{border-bottom:0}
+.chk input{width:19px;height:19px;margin-top:2px;accent-color:var(--ok);flex:none}
+.chk li.done .ct{text-decoration:line-through;color:var(--muted)}
+.chk .ct{flex:1}
+.progress{height:10px;background:var(--surface2);border-radius:99px;overflow:hidden;margin:6px 0 14px}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--ok));transition:width .3s}
+
+/* top page */
+.tabs{display:inline-flex;background:var(--surface2);border-radius:10px;padding:3px;gap:2px}
+.tabs button{border:0;background:transparent;color:var(--muted);padding:7px 14px;border-radius:8px;font:inherit;font-weight:600;cursor:pointer}
+.tabs button.on{background:var(--surface);color:var(--text);box-shadow:var(--shadow)}
+.prob{display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:start}
+.prob .rank{width:40px;height:40px;font-size:16px}
+.prob .n{text-align:right;font-size:22px;font-weight:700}
+.prob .n small{display:block;font-size:12px;font-weight:400;color:var(--muted)}
+.prob ol{margin:6px 0 8px;padding-left:20px;font-size:14px}
+.prob.gap{border-color:var(--warn);border-style:dashed}
+.prob.hidden{opacity:.5}
+.modbar{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+
+/* kpi */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi b{display:block;font-size:26px}
+.kpi span{font-size:13px;color:var(--muted)}
+
+/* chat */
+#chatFab{position:fixed;right:20px;bottom:20px;z-index:50;display:flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:13px 18px;background:var(--brand);color:var(--on-brand);font:inherit;font-weight:700;cursor:pointer;box-shadow:0 8px 24px rgba(11,92,171,.35)}
+#chatFab:hover{background:var(--brand2)}
+#chat{position:fixed;right:20px;bottom:20px;z-index:60;width:400px;max-width:calc(100vw - 32px);height:600px;max-height:calc(100vh - 40px);background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 50px rgba(0,0,0,.25);display:flex;flex-direction:column;overflow:hidden}
+#chat[hidden]{display:none}
+@media (max-width:600px){#chat{right:8px;left:8px;bottom:8px;width:auto;max-width:none;height:calc(100vh - 16px)}}
+.chead{display:flex;align-items:center;gap:10px;padding:12px 14px;background:linear-gradient(120deg,var(--brand),var(--accent));color:#fff}
+.chead b{flex:1}
+.chead button{border:0;background:rgba(255,255,255,.2);color:#fff;width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:16px}
+.cmsgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+.msg{max-width:88%;padding:10px 13px;border-radius:14px;font-size:14px}
+.msg p{margin:0 0 6px}.msg p:last-child{margin:0}
+.msg ol{margin:4px 0 6px;padding-left:18px}
+.msg.bot{background:var(--surface);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.user{background:var(--brand);color:var(--on-brand);align-self:flex-end;border-bottom-right-radius:4px}
+.msg .src{font-size:13px;border-top:1px solid var(--line);padding-top:6px;margin-top:6px}
+.msg .aifb{display:flex;gap:6px;align-items:center;margin-top:8px;font-size:12.5px;color:var(--muted)}
+.msg .aifb button{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:2px 9px;cursor:pointer}
+.typing span{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--muted);margin-right:3px;animation:blink 1s infinite}
+.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,100%{opacity:.25}50%{opacity:1}}
+.csugg{display:flex;gap:6px;flex-wrap:wrap;padding:8px 12px 0;background:var(--surface)}
+.csugg button{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:999px;padding:4px 10px;font-size:12.5px;cursor:pointer}
+.cform{display:flex;gap:8px;padding:10px 12px;background:var(--surface)}
+.cform input{flex:1;min-width:0}
+.cnote{font-size:11.5px;color:var(--muted);padding:0 12px 10px;background:var(--surface)}
+
+/* modal & toast */
+.modal{position:fixed;inset:0;z-index:80;background:rgba(10,16,24,.5);display:grid;place-items:center;padding:16px}
+.modal[hidden]{display:none}
+.mbox{position:relative;background:var(--surface);border-radius:18px;max-width:640px;width:100%;max-height:calc(100vh - 32px);overflow:auto;padding:24px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.mclose{position:absolute;right:12px;top:10px;border:0;background:transparent;color:var(--muted);font-size:24px;cursor:pointer}
+.field{display:grid;gap:4px;margin-bottom:12px;font-size:14px}
+.field>span{color:var(--muted);font-size:13px}
+.field input,.field select{width:100%}
+#toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:90;display:grid;gap:8px;justify-items:center;pointer-events:none}
+#toast div{background:#1d2733;color:#fff;padding:10px 16px;border-radius:10px;font-size:14px;box-shadow:var(--shadow);animation:tin .2s ease-out}
+@keyframes tin{from{opacity:0;transform:translateY(8px)}}
+footer{border-top:1px solid var(--line);background:var(--surface);padding:20px 0;color:var(--muted);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.empty{text-align:center;padding:30px 16px}
+.empty .ic{font-size:44px}
+.flex{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.mt{margin-top:16px}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 16px}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:700px){.dos{grid-template-columns:1fr}}
+.dos ul{margin:0;padding-left:20px}
+@media print{
+  header.top,.subsearch,footer,#chatFab,#chat,.no-print,.aside{display:none!important}
+  body{background:#fff;color:#000}.card{box-shadow:none;border:0;padding:0}.art{display:block}
+}
+</style>
+</head>
+<body>
+<header class="top no-print" id="hdr">
+  <div class="wrap hrow">
+    <a class="logo" href="#/"><span class="lmark">IT</span><span><b>IT F.A.Q.</b><small id="brandSub"></small></span></a>
+    <button class="menu-btn" data-act="menu" aria-label="Menu">☰</button>
+    <nav id="nav" aria-label="Main"></nav>
+    <div class="tools">
+      <div class="langsw" role="group" aria-label="Language">
+        <button data-act="lang" data-l="ru">RU</button><button data-act="lang" data-l="kz">KZ</button>
+      </div>
+      <label class="rolesel"><span id="roleLbl"></span><select id="roleSel"></select></label>
+    </div>
+  </div>
+</header>
+<main id="app" tabindex="-1"></main>
+<footer><div class="wrap"><span id="footL"></span><span id="footR"></span></div></footer>
+
+<button id="chatFab" class="no-print" data-act="chat-open">💬 <span id="fabLbl"></span></button>
+<section id="chat" hidden aria-label="AI">
+  <div class="chead"><span>🤖</span><b id="chatTitle"></b><button data-act="chat-close" aria-label="Close">✕</button></div>
+  <div class="cmsgs" id="cmsgs" aria-live="polite"></div>
+  <div class="csugg" id="csugg"></div>
+  <form class="cform" id="cform"><input id="cin" autocomplete="off"><button class="btn primary sm" type="submit">➤</button></form>
+  <div class="cnote" id="cnote"></div>
+</section>
+
+<div class="modal" id="modal" hidden><div class="mbox" role="dialog" aria-modal="true"><button class="mclose" data-act="modal-close" aria-label="Close">×</button><div id="mbody"></div></div></div>
+<div id="toast" aria-live="polite"></div>
+
+<script>
+/* ============================================================
+   IT F.A.Q. — прототип портала базы знаний ИТ (по PRD v1.0)
+   Всё работает в браузере: данные — в этом файле,
+   действия пользователя (оценки, чек-лист, отзывы) — в localStorage.
+   ============================================================ */
+const CONFIG = {
+  smaxUrl: '',                 // адрес портала самообслуживания SMAX; пусто = демо-режим
+  phone: '595',
+  email: 'sms@kmg.kz'
+};
+
+/* ---------- справочники ---------- */
+const CATS = {
+  acc:  {ic:'🔐', ru:'Учётные записи и доступы', kz:'Есептік жазбалар және қолжетімділік'},
+  mail: {ic:'📧', ru:'Почта и календарь (Outlook)', kz:'Пошта және күнтізбе (Outlook)'},
+  comm: {ic:'🎧', ru:'Связь и конференции', kz:'Байланыс және конференциялар'},
+  ws:   {ic:'💻', ru:'Рабочее место', kz:'Жұмыс орны'},
+  net:  {ic:'🌐', ru:'Сеть, Wi-Fi, VPN', kz:'Желі, Wi-Fi, VPN'},
+  print:{ic:'🖨️', ru:'Печать и сканирование', kz:'Басып шығару және сканерлеу'},
+  sw:   {ic:'📦', ru:'Программное обеспечение', kz:'Бағдарламалық қамтамасыз ету'},
+  mob:  {ic:'📱', ru:'Мобильные устройства', kz:'Мобильді құрылғылар'},
+  sec:  {ic:'🛡️', ru:'Информационная безопасность', kz:'Ақпараттық қауіпсіздік'},
+  smax: {ic:'🎫', ru:'Заявки в SMAX', kz:'SMAX өтінімдері'}
+};
+const DEV = {win:'Windows', mac:'macOS', ios:'iOS', android:'Android', any:{ru:'Любое', kz:'Кез келген'}};
+const AU = {
+  l1:{ru:'ИТ-поддержка, 1-я линия', kz:'IT-қолдау, 1-желі'},
+  l2:{ru:'Инженеры 2-й линии', kz:'2-желі инженерлері'},
+  sec:{ru:'Служба ИБ', kz:'АҚ қызметі'},
+  kb:{ru:'Модератор базы знаний', kz:'Білім қоры модераторы'}
+};
+const STATUS = {draft:{ru:'Черновик',kz:'Жоба'}, pending:{ru:'На согласовании',kz:'Келісуде'}, pub:{ru:'Опубликовано',kz:'Жарияланған'}, review:{ru:'На пересмотре',kz:'Қайта қаралуда'}, arch:{ru:'Архив',kz:'Мұрағат'}};
+
+/* ---------- статьи (стартовый набор из 30, раздел 7.1 PRD) ---------- */
+const ARTICLES = [
+{id:'login',cat:'acc',isNew:1,type:'guide',dev:['win'],upd:'2026-09-15',au:'l1',v:2140,up:212,dn:14,smax:'Учётные записи → Вход в систему',
+ t:{ru:'Первый вход в учётную запись и смена пароля',kz:'Есептік жазбаға алғаш кіру және құпиясөзді ауыстыру'},
+ tags:'вход логин пароль учетка учетная запись windows первый день смена пароля',
+ ru:{who:'Все сотрудники · Windows 10/11 · офис',tldr:'Логин и временный пароль приходят в приветственном письме или выдаются руководителем. При первом входе система попросит сменить пароль.',
+  need:['Логин (имя.фамилия@company.kz)','Временный пароль из приветственного письма','Рабочий компьютер, подключённый к корпоративной сети'],
+  steps:['Включите компьютер и нажмите Ctrl + Alt + Del.','Введите логин и временный пароль.','Система попросит сменить пароль — придумайте новый: минимум 12 символов, заглавные и строчные буквы, цифры.','Подтвердите новый пароль и дождитесь входа в Windows (первый вход может занять до 5 минут).','Откройте portal.office.com в браузере и войдите тем же логином — так вы проверите доступ к Microsoft 365.'],
+  check:'Вы вошли в Windows и открыли portal.office.com без ошибок — учётная запись работает.',
+  errors:[['«Неверное имя пользователя или пароль»','Проверьте раскладку (EN) и Caps Lock. После 5 неудачных попыток учётная запись блокируется на 15 минут.'],['«Срок действия пароля истёк»','Временный пароль действует 72 часа. Создайте заявку в SMAX на сброс пароля или позвоните на вн. 595.']],
+  warn:'Никогда не сообщайте свой пароль — даже сотрудникам ИТ-поддержки. Они его не спрашивают.'},
+ kz:{who:'Барлық қызметкерлер · Windows 10/11 · кеңсе',tldr:'Логин мен уақытша құпиясөз сәлемдесу хатында келеді немесе басшыңыз береді. Алғаш кірген кезде жүйе құпиясөзді ауыстыруды сұрайды.',
+  need:['Логин (аты.тегі@company.kz)','Сәлемдесу хатындағы уақытша құпиясөз','Корпоративтік желіге қосылған жұмыс компьютері'],
+  steps:['Компьютерді қосып, Ctrl + Alt + Del басыңыз.','Логин мен уақытша құпиясөзді енгізіңіз.','Жүйе құпиясөзді ауыстыруды сұрайды — жаңасын ойлап табыңыз: кемінде 12 таңба, бас және кіші әріптер, сандар.','Жаңа құпиясөзді растап, Windows-қа кіруді күтіңіз (алғашқы кіру 5 минутқа дейін созылуы мүмкін).','Браузерде portal.office.com ашып, сол логинмен кіріңіз — Microsoft 365-ке қолжетімділікті тексересіз.'],
+  check:'Windows-қа кірдіңіз және portal.office.com қатесіз ашылды — есептік жазба жұмыс істейді.',
+  errors:[['«Пайдаланушы аты немесе құпиясөз қате»','Пернетақта тілін (EN) және Caps Lock тексеріңіз. 5 сәтсіз әрекеттен кейін есептік жазба 15 минутқа бұғатталады.'],['«Құпиясөздің мерзімі өтті»','Уақытша құпиясөз 72 сағат жарамды. SMAX-та құпиясөзді қалпына келтіруге өтінім жасаңыз немесе 595 ішкі нөміріне қоңырау шалыңыз.']],
+  warn:'Құпиясөзіңізді ешкімге, тіпті IT-қолдау қызметкерлеріне де айтпаңыз. Олар оны сұрамайды.'}},
+
+{id:'outlook-pc',cat:'mail',isNew:1,type:'guide',dev:['win'],upd:'2026-08-28',au:'l1',v:3120,up:301,dn:22,smax:'Почта → Outlook',
+ t:{ru:'Как подключить Outlook на рабочем компьютере',kz:'Жұмыс компьютерінде Outlook-ты қалай қосуға болады'},
+ tags:'outlook аутлук почта email письма настроить подключить ящик',
+ ru:{who:'Windows 10/11 · рабочий ПК',tldr:'На рабочем компьютере Outlook уже установлен — при первом запуске он сам найдёт вашу учётную запись. Нужно только подтвердить вход.',
+  need:['Выполненный вход в Windows под рабочей учётной записью','Подключение к корпоративной сети или VPN'],
+  steps:['Нажмите «Пуск» и найдите Outlook (или введите «outlook» в поиске Windows).','При первом запуске Outlook предложит адрес вашей почты — нажмите «Подключить».','Если появится окно входа — введите рабочий пароль.','Дождитесь загрузки почтового ящика: первая синхронизация занимает 5–15 минут.','Закрепите Outlook на панели задач: правый клик по значку → «Закрепить на панели задач».'],
+  check:'Отправьте тестовое письмо себе — оно должно появиться во «Входящих» в течение минуты.',
+  errors:[['Outlook бесконечно просит пароль','Закройте Outlook, откройте «Диспетчер учётных данных» Windows, удалите записи MicrosoftOffice и запустите Outlook снова.'],['Outlook не найден в меню «Пуск»','Установите Microsoft 365 Apps через Company Portal / Software Center (см. статью об установке ПО).']]}},
+
+{id:'owa',cat:'mail',type:'guide',dev:['any'],upd:'2026-07-10',au:'l1',v:1240,up:98,dn:6,smax:'Почта → Outlook',
+ t:{ru:'Как открыть почту в браузере (Outlook Web)',kz:'Поштаны браузерде қалай ашуға болады (Outlook Web)'},
+ tags:'outlook web owa почта браузер веб онлайн outlook.office.com',
+ ru:{who:'Любой ПК или Mac · браузер',tldr:'Почту можно открыть в любом браузере по адресу outlook.office.com — без установки программ.',
+  need:['Браузер Edge, Chrome или Safari','Рабочий логин и пароль'],
+  steps:['Откройте браузер и перейдите на outlook.office.com.','Введите рабочий адрес почты и нажмите «Далее».','Введите пароль и нажмите «Войти».','На вопрос «Не выходить из системы?» ответьте «Да» только на своём рабочем компьютере.'],
+  check:'Открылся ваш почтовый ящик с папкой «Входящие».',
+  errors:[['«Доступ заблокирован политикой условного доступа»','Вход с личных устройств может быть ограничен. Используйте рабочий ПК или VPN.']],
+  warn:'На чужом или общем компьютере всегда выходите из учётной записи и закрывайте браузер.'}},
+
+{id:'outlook-mobile',cat:'mail',also:['mob'],isNew:1,type:'guide',dev:['ios','android'],upd:'2026-09-20',au:'l1',v:2610,up:244,dn:21,smax:'Мобильные устройства → Почта на телефоне',
+ t:{ru:'Как подключить корпоративную почту на телефоне',kz:'Корпоративтік поштаны телефонға қалай қосуға болады'},
+ tags:'почта телефон смартфон мобильный iphone android outlook телефонда айфон андроид',
+ ru:{who:'iPhone (iOS 16+) · Android 10+',tldr:'Установите приложение Microsoft Outlook на телефон и войдите рабочей учётной записью. Корпоративная почта работает только через это приложение.',
+  need:['Смартфон с iOS 16+ или Android 10+','Рабочий логин и пароль','Приложение Intune Company Portal — может потребоваться на шаге 4'],
+  steps:['Установите Microsoft Outlook из App Store или Google Play.','Откройте Outlook и нажмите «Добавить учётную запись».','Введите рабочий адрес почты и пароль.','Если появится запрос «Ваша организация защищает данные» — разрешите установку Company Portal и следуйте подсказкам.','Перезапустите Outlook — почта и календарь загрузятся автоматически.'],
+  check:'Во «Входящих» видны ваши рабочие письма, а в календаре — встречи.',
+  errors:[['Стандартное приложение «Почта» на iPhone не подключается','Это нормально: политика безопасности разрешает только приложение Microsoft Outlook.'],['«Ваше устройство не соответствует требованиям»','Обновите ОС телефона и установите код блокировки экрана.']]},
+ kz:{who:'iPhone (iOS 16+) · Android 10+',tldr:'Телефонға Microsoft Outlook қосымшасын орнатып, жұмыс есептік жазбаңызбен кіріңіз. Корпоративтік пошта тек осы қосымша арқылы жұмыс істейді.',
+  need:['iOS 16+ немесе Android 10+ смартфоны','Жұмыс логині мен құпиясөзі','Intune Company Portal қосымшасы — 4-қадамда қажет болуы мүмкін'],
+  steps:['App Store немесе Google Play-ден Microsoft Outlook орнатыңыз.','Outlook ашып, «Есептік жазба қосу» басыңыз.','Жұмыс пошта мекенжайыңыз бен құпиясөзді енгізіңіз.','«Ұйымыңыз деректерді қорғайды» сұрауы шықса — Company Portal орнатуға рұқсат беріп, нұсқауларды орындаңыз.','Outlook-ты қайта іске қосыңыз — пошта мен күнтізбе автоматты түрде жүктеледі.'],
+  check:'«Кіріс» қалтасында жұмыс хаттарыңыз, ал күнтізбеде кездесулер көрінеді.',
+  errors:[['iPhone-ның стандартты «Пошта» қосымшасы қосылмайды','Бұл қалыпты жағдай: қауіпсіздік саясаты тек Microsoft Outlook қосымшасына рұқсат береді.'],['«Құрылғыңыз талаптарға сәйкес келмейді»','Телефонның операциялық жүйесін жаңартып, экран құлпының кодын орнатыңыз.']]}},
+
+{id:'signature',cat:'mail',type:'guide',dev:['win','any'],upd:'2025-08-20',au:'l1',v:860,up:61,dn:9,smax:'Почта → Outlook',
+ t:{ru:'Как настроить подпись и автоответ в Outlook',kz:'Outlook-та қолтаңба мен автожауапты қалай баптауға болады'},
+ tags:'подпись автоответ отпуск outlook почта signature автоматический ответ',
+ ru:{who:'Outlook для Windows и Outlook Web',tldr:'Подпись и автоответ настраиваются в параметрах Outlook за пару минут. Автоответ включайте перед отпуском или командировкой.',
+  need:['Подключённый Outlook'],
+  steps:['В Outlook откройте «Файл» → «Параметры» → «Почта» → «Подписи».','Нажмите «Создать», введите имя подписи и текст по корпоративному шаблону (ФИО, должность, телефон).','Выберите подпись по умолчанию для новых писем и ответов, нажмите «ОК».','Для автоответа: «Файл» → «Автоматические ответы» → «Отправлять автоматические ответы».','Укажите период, текст для коллег и (при необходимости) для внешних адресатов, нажмите «ОК».'],
+  check:'Создайте новое письмо — подпись подставится сама. При включённом автоответе в Outlook появится жёлтая полоса-напоминание.',
+  errors:[['Подпись не появляется в Outlook Web','Подписи в Outlook Web настраиваются отдельно: «Параметры» (шестерёнка) → «Почта» → «Подписи».']]}},
+
+{id:'headset-win',cat:'comm',isNew:1,type:'guide',dev:['win'],upd:'2026-09-25',au:'l1',v:1980,up:190,dn:12,smax:'Связь → Teams и гарнитуры',
+ t:{ru:'Как проверить наушники и микрофон в Windows',kz:'Windows-та құлаққап пен микрофонды қалай тексеруге болады'},
+ tags:'наушники гарнитура микрофон звук проверить windows не слышно headset колонки динамик',
+ ru:{who:'Windows 10/11 · USB или Bluetooth гарнитура',tldr:'Проверьте, что Windows выбрала вашу гарнитуру устройством по умолчанию, и убедитесь, что шкала микрофона реагирует на голос.',
+  need:['Гарнитура или наушники с микрофоном'],
+  steps:['Подключите гарнитуру и подождите 10–20 секунд, пока Windows её распознает.','Нажмите правой кнопкой на значок динамика в трее → «Параметры звука».','В блоке «Вывод» выберите вашу гарнитуру и нажмите «Проверить» — вы должны услышать звук.','В блоке «Ввод» выберите микрофон гарнитуры и скажите несколько слов — синяя шкала должна двигаться.','Если шкала не двигается — откройте «Параметры» → «Конфиденциальность» → «Микрофон» и включите доступ для приложений.'],
+  check:'Звук слышен в гарнитуре, шкала микрофона реагирует на голос.',
+  errors:[['Гарнитуры нет в списке','Подключите её в другой USB-порт (не через хаб). Для Bluetooth удалите устройство и выполните сопряжение заново.'],['На гарнитуре есть кнопка Mute','Проверьте, что микрофон не отключён кнопкой на проводе или чашке (часто горит красный индикатор).']]},
+ kz:{who:'Windows 10/11 · USB немесе Bluetooth гарнитура',tldr:'Windows гарнитураңызды әдепкі құрылғы ретінде таңдағанын тексеріп, микрофон шкаласы дауысқа жауап беретініне көз жеткізіңіз.',
+  need:['Микрофоны бар гарнитура немесе құлаққап'],
+  steps:['Гарнитураны қосып, Windows оны танығанша 10–20 секунд күтіңіз.','Тапсырмалар тақтасындағы динамик белгішесін тінтуірдің оң жағымен басыңыз → «Дыбыс параметрлері».','«Шығыс» блогында гарнитураңызды таңдап, «Тексеру» басыңыз — дыбыс естілуі керек.','«Кіріс» блогында гарнитура микрофонын таңдап, бірнеше сөз айтыңыз — көк шкала қозғалуы керек.','Шкала қозғалмаса — «Параметрлер» → «Құпиялылық» → «Микрофон» ашып, қосымшаларға рұқсатты қосыңыз.'],
+  check:'Гарнитурада дыбыс естіледі, микрофон шкаласы дауысқа жауап береді.',
+  errors:[['Гарнитура тізімде жоқ','Оны басқа USB портқа қосыңыз (хаб арқылы емес). Bluetooth үшін құрылғыны жойып, қайта жұптаңыз.'],['Гарнитурада Mute түймесі бар','Микрофон сымдағы немесе құлаққаптағы түймемен өшірілмегенін тексеріңіз (көбіне қызыл индикатор жанады).']]}},
+
+{id:'teams-test',cat:'comm',isNew:1,type:'guide',dev:['win','mac'],upd:'2026-09-25',au:'l1',v:1520,up:150,dn:8,smax:'Связь → Teams и гарнитуры',
+ t:{ru:'Как проверить звук и камеру в Teams (тестовый звонок)',kz:'Teams-та дыбыс пен камераны қалай тексеруге болады (сынақ қоңырауы)'},
+ tags:'teams тимс тестовый пробный звонок камера звук микрофон проверить видео',
+ ru:{who:'Microsoft Teams · Windows/macOS',tldr:'В Teams есть тестовый звонок: вы записываете короткое сообщение и сразу слышите, как звучите.',
+  need:['Установленный Microsoft Teams','Гарнитура и (по желанию) веб-камера'],
+  steps:['Откройте Teams, нажмите «…» рядом с фото профиля → «Параметры».','Перейдите в раздел «Устройства» (или «Звук и видео»).','Выберите в списках динамик, микрофон и камеру.','Нажмите «Сделать пробный звонок».','Следуйте подсказке бота: скажите пару фраз — запись воспроизведётся автоматически.'],
+  check:'В пробном звонке вы слышите свою запись, а превью камеры показывает изображение.',
+  errors:[['Камера показывает чёрный экран','Проверьте шторку на камере ноутбука и закройте другие программы, использующие камеру (Zoom, браузер).']]}},
+
+{id:'teams-nomic',cat:'comm',type:'problem',dev:['win'],upd:'2026-10-01',au:'l2',v:2890,up:270,dn:31,smax:'Связь → Teams и гарнитуры',
+ t:{ru:'Меня не слышно в Teams — что делать',kz:'Teams-та мені естімейді — не істеу керек'},
+ tags:'не слышно меня микрофон teams тимс звонок собеседник не слышит mute звук естілмейді',
+ ru:{who:'Microsoft Teams · Windows',tldr:'Чаще всего Teams использует не тот микрофон или микрофон выключен на самой гарнитуре. Проверьте 5 пунктов ниже — обычно хватает первых двух.',
+  need:['Гарнитура с микрофоном'],
+  steps:['Во время звонка нажмите «Ещё» (…) → «Параметры устройства» и выберите микрофон вашей гарнитуры.','Убедитесь, что значок микрофона в звонке не перечёркнут, а на гарнитуре не включён Mute.','Проверьте микрофон в Windows: «Параметры звука» → «Ввод» — шкала должна двигаться.','Закройте другие программы, которые могут занять микрофон (Zoom, звонки в браузере).','Если не помогло — полностью закройте Teams (правый клик в трее → «Выйти») и откройте снова.'],
+  check:'Сделайте пробный звонок в Teams — вы должны слышать свою запись.',
+  errors:[['Собеседники слышат эхо','Используйте гарнитуру вместо динамиков ноутбука.'],['Звук пропадает через несколько минут','Отключите энергосбережение USB: «Диспетчер устройств» → «Контроллеры USB» → снимите галочку «Разрешить отключение этого устройства».']]},
+ kz:{who:'Microsoft Teams · Windows',tldr:'Көбіне Teams басқа микрофонды пайдаланады немесе микрофон гарнитураның өзінде өшірілген. Төмендегі 5 тармақты тексеріңіз — әдетте алғашқы екеуі жеткілікті.',
+  need:['Микрофоны бар гарнитура'],
+  steps:['Қоңырау кезінде «Тағы» (…) → «Құрылғы параметрлері» басып, гарнитураңыздың микрофонын таңдаңыз.','Қоңыраудағы микрофон белгішесі сызылмағанын және гарнитурада Mute қосылмағанын тексеріңіз.','Windows-та микрофонды тексеріңіз: «Дыбыс параметрлері» → «Кіріс» — шкала қозғалуы керек.','Микрофонды иеленуі мүмкін басқа бағдарламаларды жабыңыз (Zoom, браузердегі қоңыраулар).','Көмектеспесе — Teams-ты толық жабыңыз (тапсырмалар тақтасында оң жақ батырма → «Шығу») және қайта ашыңыз.'],
+  check:'Teams-та сынақ қоңырауын жасаңыз — өз жазбаңызды естуіңіз керек.',
+  errors:[['Әңгімелесушілер жаңғырық естиді','Ноутбук динамиктерінің орнына гарнитураны пайдаланыңыз.'],['Дыбыс бірнеше минуттан кейін жоғалады','USB қуат үнемдеуін өшіріңіз: «Құрылғылар диспетчері» → «USB контроллерлері».']]}},
+
+{id:'wifi',cat:'net',isNew:1,type:'guide',dev:['win','mac'],upd:'2026-06-14',au:'l1',v:1410,up:120,dn:10,smax:'Сеть → VPN и Wi-Fi',
+ t:{ru:'Как подключиться к Wi-Fi в офисе',kz:'Кеңседе Wi-Fi-ға қалай қосылуға болады'},
+ tags:'wifi wi-fi вайфай беспроводная сеть интернет офис corp-wifi гостевой',
+ ru:{who:'Рабочий ноутбук · офис',tldr:'В офисе используйте сеть CORP-WiFi — подключение выполняется по вашей рабочей учётной записи. Сеть GUEST — только для гостей и личных устройств.',
+  need:['Рабочий ноутбук','Логин и пароль'],
+  steps:['Нажмите на значок сети в правом нижнем углу экрана.','Выберите сеть CORP-WiFi и нажмите «Подключиться».','Если появится запрос — введите рабочий логин и пароль.','Подтвердите сертификат сервера (только для сети CORP-WiFi!).'],
+  check:'Под названием сети написано «Подключено, защищено», открывается внутренний портал.',
+  errors:[['Нет сети CORP-WiFi в списке','Проверьте, что Wi-Fi включён (Fn + клавиша с антенной) и вы находитесь в офисе.'],['«Не удаётся подключиться к этой сети»','Нажмите «Забыть» для CORP-WiFi и подключитесь заново. Если пароль недавно менялся — перезагрузите ноутбук.']]}},
+
+{id:'vpn',cat:'net',isNew:1,type:'guide',dev:['win','mac'],upd:'2026-08-05',au:'l2',v:2210,up:188,dn:25,smax:'Сеть → VPN и Wi-Fi',
+ t:{ru:'Как подключиться к VPN из дома',kz:'Үйден VPN-ге қалай қосылуға болады'},
+ tags:'vpn впн удаленно удаленка из дома командировка подключение',
+ ru:{who:'Рабочий ноутбук · вне офиса',tldr:'VPN нужен для доступа к внутренним системам из дома или командировки. Вход — по рабочей учётной записи.',
+  need:['Рабочий ноутбук с установленным VPN-клиентом','Стабильный интернет','Рабочий логин и пароль'],
+  steps:['Подключитесь к домашнему интернету (Wi-Fi или кабель).','Найдите значок VPN-клиента в трее (рядом с часами) и нажмите на него.','Нажмите «Подключить» — адрес шлюза уже прописан.','Введите рабочий логин и пароль.','Дождитесь статуса «Подключено».'],
+  check:'Открываются внутренний портал и сетевые диски.',
+  errors:[['VPN подключается, но внутренние ресурсы не открываются','См. статью «VPN подключён, но нет доступа к ресурсам».'],['Ошибка аутентификации','Проверьте раскладку и Caps Lock. Если пароль недавно менялся — сначала войдите в Windows с новым паролем.']]}},
+
+{id:'printer',cat:'print',isNew:1,type:'guide',dev:['win'],upd:'2025-06-03',st:'review',au:'l1',v:1660,up:121,dn:30,smax:'Печать → Принтеры',
+ t:{ru:'Как добавить принтер и распечатать документ',kz:'Принтерді қалай қосып, құжатты басып шығаруға болады'},
+ tags:'принтер печать распечатать мфу добавить принтер printer',
+ ru:{who:'Windows 10/11 · офисные МФУ',tldr:'Принтеры добавляются с сервера печати по номеру этажа. Печать на любом МФУ — после прикладывания пропуска (Follow-Me).',
+  need:['Подключение к корпоративной сети','Пропуск сотрудника'],
+  steps:['Нажмите Win + R, введите \\\\print01 и нажмите Enter.','Найдите принтер вашего этажа (например, FL3-MFU) и дважды щёлкните по нему — драйвер установится автоматически.','Откройте документ и нажмите Ctrl + P.','Выберите добавленный принтер и нажмите «Печать».','Подойдите к МФУ и приложите пропуск к считывателю — задание распечатается.'],
+  check:'Документ распечатан после прикладывания пропуска.',
+  errors:[['МФУ не принимает пропуск','Пропуск нужно привязать один раз: приложите его и введите логин и пароль на экране МФУ.'],['Задание «висит» в очереди','См. статью «Документ застрял в очереди печати».']]}},
+
+{id:'share',cat:'acc',type:'guide',dev:['win'],upd:'2026-05-18',au:'l2',v:990,up:80,dn:11,smax:'Доступы → Сетевые папки',
+ t:{ru:'Как получить доступ к общей папке / сетевому диску',kz:'Ортақ қалтаға / желілік дискіге қалай қолжетімділік алуға болады'},
+ tags:'общая папка сетевой диск доступ папка шара права файловый сервер',
+ ru:{who:'Все сотрудники',tldr:'Доступ к общей папке выдаёт её владелец (обычно руководитель подразделения) через заявку в SMAX. После согласования папка станет доступна.',
+  need:['Путь к папке (например, \\\\fs01\\Finance) или её название','Имя владельца папки (согласующего)'],
+  steps:['Узнайте у коллег точный путь к папке.','Откройте SMAX → «Каталог услуг» → «Доступы» → «Доступ к сетевой папке».','Укажите путь, нужный уровень (чтение / изменение) и обоснование.','Отправьте заявку — она уйдёт на согласование владельцу папки.','После выполнения заявки выйдите из Windows и войдите снова.','Откройте папку: вставьте путь в адресную строку Проводника.'],
+  check:'Папка открывается, и вы видите её содержимое.',
+  errors:[['«Нет доступа» после выполнения заявки','Выйдите из системы и войдите снова — права применяются при входе.']]}},
+
+{id:'software',cat:'sw',isNew:1,type:'guide',dev:['win'],upd:'2026-07-22',au:'l1',v:1350,up:117,dn:9,smax:'ПО → Установка ПО',
+ t:{ru:'Как установить разрешённое ПО (Company Portal / Software Center)',kz:'Рұқсат етілген бағдарламаны қалай орнатуға болады'},
+ tags:'установить программа приложение software center company portal софт установка',
+ ru:{who:'Windows 10/11 · рабочий ПК',tldr:'Разрешённые программы устанавливаются самостоятельно через Company Portal (Software Center) — без прав администратора и без заявки.',
+  need:['Рабочий компьютер в корпоративной сети или с VPN'],
+  steps:['Нажмите «Пуск» и откройте Company Portal (или Software Center).','Найдите нужную программу через поиск или в разделе «Приложения».','Нажмите «Установить» и дождитесь окончания.','Если нужной программы нет в каталоге — создайте заявку «Установка ПО» в SMAX с обоснованием.'],
+  check:'Программа появилась в меню «Пуск».',
+  errors:[['Установка зависла на 0%','Перезагрузите компьютер и повторите установку.']],
+  warn:'Не устанавливайте программы из интернета — это нарушает правила ИБ и блокируется системой защиты.'}},
+
+{id:'smax-login',cat:'smax',type:'guide',dev:['any'],upd:'2026-09-01',au:'kb',v:870,up:77,dn:4,smax:'Общие вопросы → Консультация',
+ t:{ru:'Как войти в SMAX',kz:'SMAX-қа қалай кіруге болады'},
+ tags:'smax смакс вход портал самообслуживания заявки войти',
+ ru:{who:'Все сотрудники · браузер',tldr:'SMAX — система заявок ИТ. Вход выполняется автоматически по рабочей учётной записи (SSO), отдельный пароль не нужен.',
+  need:['Браузер Edge или Chrome','Корпоративная сеть или VPN'],
+  steps:['Нажмите кнопку «Создать заявку в SMAX» на этом портале.','Если появится окно входа — выберите рабочую учётную запись.','Добавьте страницу в закладки браузера.'],
+  check:'Открылся портал самообслуживания с вашим именем в правом верхнем углу.',
+  errors:[['Ошибка 403 / нет доступа','Учётная запись ещё не синхронизирована с SMAX (бывает в первый день). Позвоните на вн. 595.']]}},
+
+{id:'smax-create',cat:'smax',isNew:1,type:'guide',dev:['any'],upd:'2026-09-01',au:'kb',v:1720,up:166,dn:9,smax:'Общие вопросы → Консультация',
+ t:{ru:'Как создать заявку в SMAX (пошагово)',kz:'SMAX-та өтінімді қалай жасауға болады (қадамдап)'},
+ tags:'smax смакс заявка создать заявку тикет обращение как оформить',
+ ru:{who:'Все сотрудники',tldr:'Хорошая заявка = правильная категория + понятная тема + описание «что делал, что ожидал, что произошло». Так её решат быстрее и не вернут на уточнение.',
+  need:['Доступ к SMAX','Скриншот ошибки (если есть)','Инвентарный номер ПК (наклейка на корпусе), если проблема с оборудованием'],
+  steps:['Откройте SMAX и нажмите «Сообщить о проблеме» (если что-то сломалось) или «Каталог услуг» (если нужно что-то получить).','Выберите услугу/категорию — подсказка в разделе «Как выбрать категорию».','В поле «Тема» кратко опишите суть: «Outlook не запускается после обновления».','В «Описании» укажите: что делали, что ожидали, что произошло, текст ошибки, с какого времени.','Приложите скриншот (Win + Shift + S) и укажите телефон для связи.','Нажмите «Отправить» и сохраните номер заявки.'],
+  check:'Заявка появилась в разделе «Мои заявки» со статусом «Новая».',
+  errors:[['Не знаю, какую категорию выбрать','Выберите «Общие вопросы → Консультация» — диспетчер переназначит заявку, но решение может занять больше времени.']],
+  tip:'Скопируйте готовый шаблон из раздела «Заявки в SMAX» — в нём уже есть все нужные поля.'},
+ kz:{who:'Барлық қызметкерлер',tldr:'Жақсы өтінім = дұрыс санат + түсінікті тақырып + «не істедім, не күттім, не болды» сипаттамасы. Сонда ол тезірек шешіледі және нақтылауға қайтарылмайды.',
+  need:['SMAX-қа қолжетімділік','Қате скриншоты (бар болса)','Компьютердің инвентарлық нөмірі (корпустағы жапсырма), жабдыққа қатысты мәселе болса'],
+  steps:['SMAX ашып, «Мәселе туралы хабарлау» (бірдеңе бұзылса) немесе «Қызметтер каталогы» (бірдеңе алу керек болса) басыңыз.','Қызметті/санатты таңдаңыз — кеңес «Санатты қалай таңдау керек» бөлімінде.','«Тақырып» өрісінде мәселені қысқаша жазыңыз: «Жаңартудан кейін Outlook іске қосылмайды».','«Сипаттама» өрісінде: не істедіңіз, не күттіңіз, не болды, қате мәтіні, қашаннан бері екенін көрсетіңіз.','Скриншот қосыңыз (Win + Shift + S) және байланыс телефонын көрсетіңіз.','«Жіберу» басып, өтінім нөмірін сақтаңыз.'],
+  check:'Өтінім «Менің өтінімдерім» бөлімінде «Жаңа» мәртебесімен пайда болды.',
+  errors:[['Қай санатты таңдау керектігін білмеймін','«Жалпы сұрақтар → Кеңес» таңдаңыз — диспетчер өтінімді қайта тағайындайды, бірақ шешу ұзағырақ болуы мүмкін.']],
+  tip:'«SMAX өтінімдері» бөліміндегі дайын үлгіні көшіріңіз — онда барлық қажетті өрістер бар.'}},
+
+{id:'smax-category',cat:'smax',type:'guide',dev:['any'],upd:'2026-09-01',au:'kb',v:640,up:58,dn:5,smax:'Общие вопросы → Консультация',
+ t:{ru:'Как выбрать правильную категорию заявки',kz:'Өтінімнің дұрыс санатын қалай таңдауға болады'},
+ tags:'категория услуга выбрать smax смакс каталог классификация заявка',
+ ru:{who:'Все сотрудники',tldr:'Сломалось или не работает — это инцидент («Сообщить о проблеме»). Нужно что-то новое: доступ, программа, оборудование — это запрос («Каталог услуг»).',
+  need:['Таблица «Ситуация → категория SMAX» в разделе «Заявки в SMAX»'],
+  steps:['Определите тип: инцидент (что-то сломалось) или запрос (нужно что-то получить).','Найдите свою ситуацию в таблице «Ситуация → категория SMAX».','В SMAX откройте указанную категорию и выберите подкатегорию.','Если ситуации нет в таблице — выберите «Общие вопросы → Консультация».'],
+  check:'Категория в заявке совпадает с подсказкой из таблицы.',errors:[]}},
+
+{id:'smax-status',cat:'smax',type:'guide',dev:['any'],upd:'2026-09-01',au:'kb',v:530,up:44,dn:3,smax:'Общие вопросы → Консультация',
+ t:{ru:'Как отследить статус заявки и добавить комментарий',kz:'Өтінім мәртебесін қалай бақылап, пікір қосуға болады'},
+ tags:'статус заявки отследить комментарий закрыть заявку мои заявки smax смакс',
+ ru:{who:'Все сотрудники',tldr:'Все ваши заявки — в разделе «Мои заявки» SMAX. Там же можно добавить комментарий, приложить файл или подтвердить решение.',
+  need:['Номер заявки (приходит в письме)'],
+  steps:['Откройте SMAX → «Мои заявки».','Нажмите на номер заявки, чтобы открыть карточку.','Чтобы ответить инженеру — напишите в поле «Комментарий» и нажмите «Отправить».','Если проблема решена — нажмите «Подтвердить решение»; если нет — «Отклонить решение» и опишите, что не так.'],
+  check:'Ваш комментарий появился в истории заявки.',
+  errors:[['Заявка закрыта, но проблема осталась','В течение 5 дней откройте заявку и нажмите «Отклонить решение» — она вернётся в работу.']]}},
+
+{id:'smax-incident',cat:'smax',type:'faq',dev:['any'],upd:'2026-09-01',au:'kb',v:480,up:51,dn:2,smax:'Общие вопросы → Консультация',
+ t:{ru:'Инцидент или запрос — в чём разница',kz:'Инцидент пе, сұрау ма — айырмашылығы неде'},
+ tags:'инцидент запрос разница обслуживание тип заявки smax смакс',
+ ru:{who:'Все сотрудники',tldr:'Инцидент — что-то перестало работать. Запрос на обслуживание — нужно что-то получить или изменить. От типа зависят сроки и маршрут заявки.',
+  need:[],
+  steps:['Инцидент: «Не запускается Outlook», «Сломалась мышь», «Не подключается VPN» — раньше работало, теперь нет.','Запрос: «Нужен доступ к папке», «Установить Visio», «Выдать второй монитор» — что-то новое или изменение.','Инциденты решаются в первую очередь по SLA, запросы — в плановые сроки, часто с согласованием руководителя.','Сомневаетесь — выбирайте инцидент: диспетчер переклассифицирует заявку, если нужно.'],
+  errors:[]}},
+
+{id:'phishing',cat:'sec',isNew:1,type:'guide',dev:['any'],upd:'2026-08-12',au:'sec',v:1150,up:131,dn:3,smax:'ИБ → Фишинг',
+ t:{ru:'Что делать при подозрительном письме (фишинг)',kz:'Күдікті хат (фишинг) келсе не істеу керек'},
+ tags:'фишинг подозрительное письмо спам мошенники вирус безопасность иб ссылка вложение',
+ ru:{who:'Все сотрудники · Outlook',tldr:'Не переходите по ссылкам и не открывайте вложения. Нажмите кнопку «Сообщить о фишинге» в Outlook — письмо уйдёт в службу ИБ.',
+  need:[],
+  steps:['Не нажимайте на ссылки, не открывайте вложения и не отвечайте отправителю.','Проверьте признаки: срочность, угрозы, просьба ввести пароль, адрес отправителя похож на настоящий, но отличается.','В Outlook выберите письмо и нажмите «Сообщить» → «Фишинг» на ленте.','Если вы уже перешли по ссылке или ввели пароль — сразу смените пароль и позвоните на вн. 595.'],
+  check:'Письмо исчезло из «Входящих», пришло подтверждение от системы.',
+  errors:[['Нет кнопки «Сообщить»','Перешлите письмо как вложение в службу ИБ и удалите его.']],
+  warn:'ИТ-служба никогда не просит прислать пароль или коды подтверждения.'}},
+
+/* --- решения для топ-проблем (21–30) --- */
+{id:'outlook-hang',cat:'mail',type:'problem',dev:['win'],upd:'2026-09-30',au:'l2',v:3410,up:298,dn:40,smax:'Почта → Outlook',
+ t:{ru:'Outlook не запускается или зависает',kz:'Outlook іске қосылмайды немесе қатып қалады'},
+ tags:'outlook аутлук не запускается зависает тормозит не открывается вылетает почта не работает',
+ ru:{who:'Outlook для Windows',tldr:'Чаще всего помогает запуск Outlook в безопасном режиме и отключение надстроек. Если нет — восстановите профиль.',
+  need:[],
+  steps:['Закройте Outlook и проверьте в Диспетчере задач (Ctrl + Shift + Esc), что процесса OUTLOOK.EXE нет.','Нажмите Win + R, введите outlook.exe /safe и нажмите Enter.','Если в безопасном режиме Outlook работает: «Файл» → «Параметры» → «Надстройки» → «Перейти» и снимите галочки со всех надстроек.','Перезапустите Outlook в обычном режиме.','Если не помогло — «Панель управления» → «Почта» → «Учётные записи» → «Восстановить».'],
+  check:'Outlook открывается за 1–2 минуты и не зависает.',
+  errors:[['Ошибка «Не удаётся открыть набор папок»','Создайте новый профиль: «Панель управления» → «Почта» → «Показать» → «Добавить».']]}},
+
+{id:'locked',cat:'acc',type:'problem',dev:['any'],upd:'2026-09-12',au:'l1',v:2050,up:181,dn:17,smax:'Учётные записи → Вход в систему',
+ t:{ru:'Учётная запись заблокирована',kz:'Есептік жазба бұғатталды'},
+ tags:'заблокирована учетка учетная запись блокировка не могу войти пароль неверный',
+ ru:{who:'Все сотрудники',tldr:'Учётная запись блокируется на 15 минут после 5 неверных вводов пароля. Частая причина — старый пароль, сохранённый на телефоне.',
+  need:[],
+  steps:['Подождите 15 минут — блокировка снимется автоматически.','Отключите Wi-Fi и мобильные данные на телефоне, где сохранён старый пароль от почты.','Войдите в Windows, внимательно проверив раскладку и Caps Lock.','Обновите пароль на телефоне (Outlook, Teams) и снова включите интернет.','Если блокировка повторяется — создайте заявку или позвоните на вн. 595.'],
+  check:'Вы входите в Windows и почту без ошибки блокировки.',errors:[]}},
+
+{id:'vpn-noaccess',cat:'net',type:'problem',dev:['win'],upd:'2026-08-30',au:'l2',v:1180,up:83,dn:19,smax:'Сеть → VPN и Wi-Fi',
+ t:{ru:'VPN подключён, но нет доступа к ресурсам',kz:'VPN қосылған, бірақ ресурстарға қолжетімділік жоқ'},
+ tags:'vpn впн нет доступа не открываются ресурсы сетевой диск подключен но не работает',
+ ru:{who:'Рабочий ноутбук · вне офиса',tldr:'Если VPN подключён, но внутренние сайты и диски не открываются — переподключитесь и проверьте, не включён ли второй VPN или прокси.',
+  need:[],
+  steps:['Отключите VPN, подождите 10 секунд и подключитесь снова.','Закройте другие VPN-программы (личные VPN, расширения браузера).','Откройте командную строку и выполните ipconfig /flushdns.','Откройте сетевой ресурс по полному имени, например \\\\fs01.company.kz\\Finance.','Перезагрузите ноутбук и подключитесь к VPN до запуска других программ.'],
+  check:'Внутренний портал и сетевые диски открываются.',errors:[]}},
+
+{id:'print-queue',cat:'print',type:'problem',dev:['win'],upd:'2026-04-11',au:'l1',v:1020,up:6,dn:9,smax:'Печать → Принтеры',
+ t:{ru:'Документ застрял в очереди печати',kz:'Құжат басып шығару кезегінде тұрып қалды'},
+ tags:'принтер не печатает очередь печати зависло задание печать застряло',
+ ru:{who:'Windows 10/11',tldr:'Очистите очередь печати и отправьте документ заново. Если задание снова зависло — удалите и добавьте принтер.',
+  need:[],
+  steps:['Откройте «Параметры» → «Bluetooth и устройства» → «Принтеры и сканеры» и выберите принтер.','Нажмите «Открыть очередь печати» и отмените все задания.','Перезагрузите компьютер.','Отправьте документ на печать ещё раз.','Если не помогло — удалите принтер и добавьте его заново (см. статью «Как добавить принтер»).'],
+  check:'Документ распечатывается после прикладывания пропуска.',errors:[]}},
+
+{id:'slow-pc',cat:'ws',type:'problem',dev:['win'],upd:'2026-07-03',au:'l1',v:980,up:72,dn:14,smax:'Рабочее место → ПК и ноутбуки',
+ t:{ru:'Компьютер медленно работает',kz:'Компьютер баяу жұмыс істейді'},
+ tags:'медленно тормозит компьютер ноутбук зависает долго работает пк',
+ ru:{who:'Windows 10/11',tldr:'Перезагрузите компьютер (именно «Перезагрузка», а не закрытие крышки) и закройте лишние вкладки браузера. Перезагружайте ПК минимум раз в неделю.',
+  need:[],
+  steps:['Сохраните документы и выберите «Пуск» → «Перезагрузка».','Откройте Диспетчер задач (Ctrl + Shift + Esc) и посмотрите, какая программа загружает процессор или память.','Закройте лишние вкладки браузера — каждая занимает 100–500 МБ памяти.','Проверьте место на диске C: — свободно должно быть не менее 10 ГБ.','Установите ожидающие обновления Windows.'],
+  check:'Компьютер загружается и открывает программы без долгих пауз.',errors:[]}},
+
+{id:'monitor',cat:'ws',type:'problem',dev:['win'],upd:'2026-06-26',au:'l1',v:760,up:64,dn:6,smax:'Рабочее место → Оборудование',
+ t:{ru:'Не работает второй монитор',kz:'Екінші монитор жұмыс істемейді'},
+ tags:'монитор второй экран не работает нет изображения док-станция hdmi дисплей',
+ ru:{who:'Ноутбук или ПК с внешним монитором',tldr:'Проверьте кабель и источник сигнала, затем нажмите Win + P и выберите «Расширить».',
+  need:[],
+  steps:['Проверьте, что монитор включён, а кабель (HDMI / DisplayPort / USB-C) плотно вставлен с обеих сторон.','Нажмите кнопку Input/Source на мониторе и выберите правильный вход.','Нажмите Win + P и выберите «Расширить».','Если используете док-станцию — переподключите её к ноутбуку и подождите 30 секунд.','Откройте «Параметры» → «Дисплей» → «Обнаружить».'],
+  check:'Изображение появилось на втором мониторе.',errors:[]}},
+
+{id:'teams-noaudio',cat:'comm',type:'problem',dev:['win','mac'],upd:'2026-09-25',au:'l1',v:690,up:58,dn:7,smax:'Связь → Teams и гарнитуры',
+ t:{ru:'Не слышно собеседника в Teams',kz:'Teams-та әңгімелесушіні естімеймін'},
+ tags:'teams тимс не слышу собеседника нет звука звонок динамик наушники',
+ ru:{who:'Microsoft Teams',tldr:'Если вы не слышите собеседников, Teams, скорее всего, выводит звук на другое устройство.',
+  need:[],
+  steps:['В звонке нажмите «Ещё» → «Параметры устройства» и выберите вашу гарнитуру в поле «Динамик».','Проверьте громкость в Windows и на самой гарнитуре.','Сделайте пробный звонок в Teams.','Перезапустите Teams.'],
+  check:'В пробном звонке слышна ваша запись.',errors:[]}},
+
+{id:'mailbox-full',cat:'mail',type:'problem',dev:['win','any'],upd:'2026-08-08',au:'l1',v:720,up:60,dn:8,smax:'Почта → Outlook',
+ t:{ru:'Почтовый ящик переполнен',kz:'Пошта жәшігі толып қалды'},
+ tags:'почтовый ящик переполнен полон квота не отправляются письма место outlook почта',
+ ru:{who:'Outlook',tldr:'При заполнении ящика Outlook перестаёт отправлять письма. Удалите крупные вложения и очистите «Удалённые».',
+  need:[],
+  steps:['В Outlook нажмите «Файл» → «Средства» → «Очистка почтового ящика».','Нажмите «Найти элементы больше» и укажите 5000 КБ — удалите ненужные письма с большими вложениями.','Очистите папку «Удалённые».','Включите архивацию: «Файл» → «Средства» → «Очистить старые элементы» или используйте Online Archive.'],
+  check:'Предупреждение о переполнении исчезло, письма отправляются.',errors:[]}},
+
+{id:'pwd-change',cat:'acc',type:'guide',dev:['win'],upd:'2026-09-15',au:'l1',v:1490,up:140,dn:7,smax:'Учётные записи → Вход в систему',
+ t:{ru:'Как сменить пароль (в т.ч. если истекает срок)',kz:'Құпиясөзді қалай ауыстыруға болады'},
+ tags:'сменить пароль смена пароля истекает срок пароля password забыл',
+ ru:{who:'Windows 10/11',tldr:'Пароль действует 90 дней. Сменить его можно заранее: Ctrl + Alt + Del → «Изменить пароль».',
+  need:['Текущий пароль'],
+  steps:['Нажмите Ctrl + Alt + Del и выберите «Изменить пароль».','Введите текущий пароль, затем дважды новый (минимум 12 символов).','Нажмите Enter и дождитесь сообщения «Пароль изменён».','Обновите пароль в Outlook и Teams на телефоне, чтобы избежать блокировки.'],
+  check:'Вы входите в Windows и почту с новым паролем.',errors:[],
+  warn:'Работаете из дома? Сначала подключитесь к VPN.'}}
+];
+
+/* ---------- топ проблем (агрегаты из SMAX, без ПДн) ---------- */
+const TOP = [
+ {id:'p1',art:'outlook-hang',c:{week:48,month:176,quarter:512},tr:{week:1,month:1,quarter:-1},t:{ru:'Outlook не запускается или зависает',kz:'Outlook іске қосылмайды немесе қатып қалады'},s:{ru:'Окно Outlook «Не отвечает» или бесконечная загрузка профиля',kz:'Outlook терезесі «Жауап бермейді» немесе профиль шексіз жүктеледі'}},
+ {id:'p2',art:'teams-nomic',c:{week:41,month:150,quarter:430},tr:{week:1,month:0,quarter:1},t:{ru:'Меня не слышно в Teams',kz:'Teams-та мені естімейді'},s:{ru:'Коллеги в звонке Teams вас не слышат',kz:'Teams қоңырауында әріптестер сізді естімейді'}},
+ {id:'p3',art:'locked',c:{week:37,month:160,quarter:520},tr:{week:-1,month:-1,quarter:1},t:{ru:'Учётная запись заблокирована',kz:'Есептік жазба бұғатталды'},s:{ru:'При входе сообщение «Учётная запись заблокирована»',kz:'Кіру кезінде «Есептік жазба бұғатталған» хабары'}},
+ {id:'p4',art:'vpn-noaccess',c:{week:29,month:118,quarter:301},tr:{week:1,month:1,quarter:0},mass:{ru:'Сбой у интернет-провайдера в одном из филиалов — устраняется, ориентир до 18:00',kz:'Филиалдардың біріндегі провайдер ақауы — жойылуда, шамамен 18:00-ге дейін'},t:{ru:'VPN подключён, но ничего не открывается',kz:'VPN қосылған, бірақ ештеңе ашылмайды'},s:{ru:'VPN показывает «Подключено», но внутренние сайты не открываются',kz:'VPN «Қосылды» дейді, бірақ ішкі сайттар ашылмайды'}},
+ {id:'p5',art:'print-queue',c:{week:25,month:102,quarter:350},tr:{week:-1,month:-1,quarter:-1},t:{ru:'Принтер не печатает',kz:'Принтер басып шығармайды'},s:{ru:'Документ висит в очереди, МФУ не печатает',kz:'Құжат кезекте тұрып қалады, МФУ басып шығармайды'}},
+ {id:'p6',art:'pwd-change',c:{week:22,month:80,quarter:260},tr:{week:1,month:1,quarter:0},t:{ru:'Истёк срок действия пароля',kz:'Құпиясөздің мерзімі өтті'},s:{ru:'При входе сообщение «Срок действия пароля истёк»',kz:'Кіру кезінде «Құпиясөздің мерзімі өтті» хабары'}},
+ {id:'p7',art:null,c:{week:19,month:61,quarter:140},tr:{week:1,month:1,quarter:1},t:{ru:'Не работает сканирование с МФУ в папку',kz:'МФУ-дан қалтаға сканерлеу жұмыс істемейді'},s:{ru:'Сканирование с МФУ в сетевую папку выдаёт ошибку',kz:'МФУ-дан желілік қалтаға сканерлеу қате береді'}},
+ {id:'p8',art:'slow-pc',c:{week:17,month:75,quarter:240},tr:{week:0,month:0,quarter:-1},t:{ru:'Компьютер медленно работает',kz:'Компьютер баяу жұмыс істейді'},s:{ru:'Долгая загрузка компьютера и программ',kz:'Компьютер мен бағдарламалар ұзақ жүктеледі'}},
+ {id:'p9',art:'mailbox-full',c:{week:14,month:55,quarter:190},tr:{week:-1,month:0,quarter:-1},t:{ru:'Почтовый ящик переполнен',kz:'Пошта жәшігі толып қалды'},s:{ru:'Предупреждение «Почтовый ящик переполнен», письма не уходят',kz:'«Пошта жәшігі толы» ескертуі, хаттар жіберілмейді'}},
+ {id:'p10',art:'monitor',c:{week:12,month:40,quarter:150},tr:{week:0,month:-1,quarter:0},t:{ru:'Не работает второй монитор',kz:'Екінші монитор жұмыс істемейді'},s:{ru:'Монитор показывает «Нет сигнала»',kz:'Монитор «Сигнал жоқ» көрсетеді'}},
+ {id:'p11',art:null,c:{week:11,month:52,quarter:170},tr:{week:1,month:1,quarter:1},t:{ru:'Не синхронизируется OneDrive',kz:'OneDrive синхрондалмайды'},s:{ru:'На значке OneDrive красный крестик, файлы не синхронизируются',kz:'OneDrive белгішесінде қызыл крест, файлдар синхрондалмайды'}},
+ {id:'p12',art:'teams-noaudio',c:{week:9,month:38,quarter:120},tr:{week:-1,month:0,quarter:-1},t:{ru:'Не слышно собеседника в Teams',kz:'Teams-та әңгімелесушіні естімеймін'},s:{ru:'Во время звонка не слышно собеседников',kz:'Қоңырау кезінде әңгімелесушілер естілмейді'}}
+];
+
+/* ---------- онбординг ---------- */
+const CHECKLIST = {
+ day1:[
+  {id:'c1',art:'login',ru:'Войти в учётную запись и сменить пароль',kz:'Есептік жазбаға кіріп, құпиясөзді ауыстыру'},
+  {id:'c2',art:'owa',ru:'Открыть почту в браузере (Outlook Web)',kz:'Поштаны браузерде ашу (Outlook Web)'},
+  {id:'c3',art:'outlook-pc',ru:'Открыть Outlook на рабочем ПК',kz:'Жұмыс компьютерінде Outlook ашу'},
+  {id:'c4',art:'headset-win',ru:'Проверить гарнитуру и микрофон',kz:'Гарнитура мен микрофонды тексеру'},
+  {id:'c5',art:'teams-test',ru:'Сделать тестовый звонок в Teams',kz:'Teams-та сынақ қоңырауын жасау'},
+  {id:'c6',art:'wifi',ru:'Подключиться к офисному Wi-Fi',kz:'Кеңсе Wi-Fi желісіне қосылу'}],
+ week1:[
+  {id:'c7',art:'outlook-mobile',ru:'Подключить почту на телефоне',kz:'Телефонға поштаны қосу'},
+  {id:'c8',art:'vpn',ru:'Настроить VPN для работы из дома',kz:'Үйден жұмыс істеу үшін VPN баптау'},
+  {id:'c9',art:'printer',ru:'Добавить принтер и распечатать тестовую страницу',kz:'Принтерді қосып, сынақ бетін басып шығару'},
+  {id:'c10',art:'software',ru:'Установить нужные программы',kz:'Қажетті бағдарламаларды орнату'},
+  {id:'c11',art:'smax-create',ru:'Войти в SMAX и узнать, как создать заявку',kz:'SMAX-қа кіріп, өтінім жасауды үйрену'},
+  {id:'c12',art:'phishing',ru:'Прочитать правила ИБ и памятку о фишинге',kz:'АҚ ережелері мен фишинг туралы жадынаманы оқу'}]
+};
+
+/* ---------- SMAX: справочники ---------- */
+const SMAX_MAP = [
+ ['Не могу войти, учётная запись заблокирована','Кіре алмаймын, есептік жазба бұғатталған','inc','Учётные записи → Вход в систему'],
+ ['Забыл пароль, нужен сброс','Құпиясөзді ұмыттым, қалпына келтіру керек','req','Учётные записи → Сброс пароля'],
+ ['Нужен доступ к папке или системе','Қалтаға немесе жүйеге қолжетімділік керек','req','Доступы → Сетевые папки / Информационные системы'],
+ ['Не работает Outlook / почта','Outlook / пошта жұмыс істемейді','inc','Почта → Outlook'],
+ ['Нет звука или микрофона в Teams','Teams-та дыбыс немесе микрофон жоқ','inc','Связь → Teams и гарнитуры'],
+ ['Не работает VPN или Wi-Fi','VPN немесе Wi-Fi жұмыс істемейді','inc','Сеть → VPN и Wi-Fi'],
+ ['Принтер не печатает','Принтер басып шығармайды','inc','Печать → Принтеры'],
+ ['Нужно установить программу','Бағдарлама орнату керек','req','ПО → Установка ПО'],
+ ['Сломалось оборудование','Жабдық бұзылды','inc','Рабочее место → Оборудование'],
+ ['Нужно новое оборудование','Жаңа жабдық керек','req','Рабочее место → Выдача оборудования'],
+ ['Подозрительное письмо, перешёл по ссылке','Күдікті хат, сілтемені бастым','inc','ИБ → Фишинг (высокий приоритет)'],
+ ['Не знаю, что выбрать','Не таңдарымды білмеймін','req','Общие вопросы → Консультация']
+];
+const SLA = [
+ ['P1',{ru:'Критический',kz:'Шұғыл'},{ru:'Массовый сбой, остановлена работа подразделения',kz:'Жаппай ақау, бөлімшенің жұмысы тоқтады'},{ru:'15 мин',kz:'15 мин'},{ru:'4 ч',kz:'4 сағ'}],
+ ['P2',{ru:'Высокий',kz:'Жоғары'},{ru:'Не может работать сотрудник, обходного пути нет',kz:'Қызметкер жұмыс істей алмайды, баламалы жол жоқ'},{ru:'30 мин',kz:'30 мин'},{ru:'8 ч',kz:'8 сағ'}],
+ ['P3',{ru:'Средний',kz:'Орташа'},{ru:'Работа затруднена, есть обходной путь',kz:'Жұмыс қиындады, баламалы жол бар'},{ru:'2 ч',kz:'2 сағ'},{ru:'2 раб. дня',kz:'2 жұмыс күні'}],
+ ['P4',{ru:'Низкий',kz:'Төмен'},{ru:'Запросы и консультации',kz:'Сұраулар мен кеңестер'},{ru:'4 ч',kz:'4 сағ'},{ru:'5 раб. дней',kz:'5 жұмыс күні'}]
+];
+const TEMPLATES = [
+ {ru:'Неисправность (инцидент)',kz:'Ақаулық (инцидент)',text:'Тема: <что не работает> — <где / когда>\nЧто делал(а): \nЧто ожидал(а): \nЧто произошло (текст ошибки): \nС какого времени: \nИнвентарный номер ПК: \nТелефон для связи: '},
+ {ru:'Доступ к сетевой папке',kz:'Желілік қалтаға қолжетімділік',text:'Тема: Доступ к сетевой папке <путь>\nПуть к папке: \nУровень доступа: чтение / изменение\nОбоснование: \nВладелец папки (согласующий): '},
+ {ru:'Установка ПО',kz:'Бағдарлама орнату',text:'Тема: Установка <название ПО>\nНазвание и версия ПО: \nДля каких задач: \nИнвентарный номер ПК: \nЛицензия: есть / нужна закупка'},
+ {ru:'Новое оборудование',kz:'Жаңа жабдық',text:'Тема: Выдача <оборудование>\nЧто нужно: \nОбоснование: \nМесто (офис, кабинет): \nСогласование руководителя: да / нет'}
+];
+
+/* ---------- интерфейс RU / KZ ---------- */
+const I18N = {
+ru:{brandSub:'База знаний ИТ',nav_home:'Главная',nav_new:'Новому сотруднику',nav_kb:'База знаний',nav_smax:'Заявки в SMAX',nav_top:'Топ проблем',nav_contacts:'Контакты',nav_admin:'Модератор',
+ searchPh:'Опишите проблему: «не слышно в Teams», «аутлук», «vpn»…',searchBtn:'Найти',heroTitle:'Чем помочь?',heroSub:'Пошаговые инструкции по типовым ИТ-вопросам за 1–2 минуты. Не нашли ответ — создайте заявку в SMAX.',popular:'Часто ищут:',
+ role:'Роль (демо):',role_emp:'Сотрудник',role_new:'Новый сотрудник',role_author:'Автор',role_mod:'Модератор',
+ tile_new:'Новому сотруднику',tile_new_d:'Чек-лист и инструкции на первые дни',tile_kb:'База знаний',tile_kb_d:'Инструкции и ответы по категориям',tile_smax:'Заявки в SMAX',tile_smax_d:'Как создать и заполнить заявку',tile_top:'Топ проблем',tile_top_d:'Частые проблемы и быстрые решения',tile_contacts:'Контакты',tile_contacts_d:'Телефон, график, эскалация',
+ top10Week:'Топ-10 проблем недели',allTop:'Все проблемы →',fresh:'Новые и обновлённые статьи',ctaTitle:'Не нашли ответ?',ctaText:'Создайте заявку в SMAX — подскажем категорию и шаблон описания.',createTicket:'Создать заявку в SMAX',askAI:'Спросить AI-ассистента',
+ myChecklist:'Ваш чек-лист онбординга',openChecklist:'Открыть чек-лист →',done:'выполнено',day1:'Первый день',week1:'Первая неделя',
+ updated:'Обновлено',views:'просмотров',useful:'Полезность',votes:'оценок',
+ s_who:'Для кого / где применимо',s_tldr:'Кратко',s_need:'Что понадобится',s_steps:'Пошаговая инструкция',s_check:'Как проверить, что всё работает',s_errors:'Частые ошибки и что делать',s_help:'Не помогло?',helpText:'Создайте заявку — категория уже подобрана:',
+ related:'Связанные статьи',toc:'Содержание',copyLink:'Скопировать ссылку',print:'Печать / PDF',linkCopied:'Ссылка скопирована',copied:'Скопировано',important:'Важно',tip:'Совет',
+ helped:'Статья помогла?',yes:'Да',no:'Нет',thanks:'Спасибо за оценку!',voted:'Ваша оценка учтена',whyNot:'Что не так?',r_old:'Устарело',r_unclear:'Непонятно',r_notmine:'Не моя проблема',r_broken:'Не работает',comment:'Комментарий (необязательно)',send:'Отправить',fbSent:'Спасибо! Отзыв передан модератору (уведомление в Teams).',pickReason:'Выберите хотя бы одну причину или напишите комментарий',
+ meta:'Сведения о статье',author:'Автор',metaUpd:'Дата обновления',review:'Следующий пересмотр',tags:'Теги',smaxCat:'Категория SMAX',status:'Статус',langs:'Языки',
+ kzFallback:'',staleWarn:'Статья не пересматривалась более 12 месяцев — требуется пересмотр (видно только модератору).',noKz:'Нет казахского перевода',
+ type_guide:'Инструкция',type_faq:'F.A.Q.',type_problem:'Решение проблемы',
+ results:'Результаты поиска',found:'Найдено',nothingFound:'Ничего не найдено',nothingText:'Попробуйте переформулировать запрос, спросите AI-ассистента или создайте заявку в SMAX. Запрос передан модератору, чтобы закрыть пробел в базе знаний.',showingFor:'Показаны результаты по запросу',
+ allCats:'Все категории',allTypes:'Все типы',allDev:'Все устройства',articlesN:'статей',noResultsAc:'Ничего не найдено — спросить AI-ассистента',
+ period_week:'Неделя',period_month:'Месяц',period_quarter:'Квартал',incidents:'обращений',quickFix:'Быстрое решение',fullArticle:'Полная статья →',massIssue:'Известная массовая проблема',gap:'Нет статьи-решения — пробел в базе знаний',gapUser:'Инструкция готовится. Пока — создайте заявку.',pin:'Закрепить',unpin:'Открепить',hide:'Скрыть',show:'Показать',pinned:'Закреплено',hiddenL:'Скрыто от пользователей',
+ topTitle:'Топ проблем и решения',topSub:'Рассчитывается ежедневно по статистике инцидентов SMAX (только категории и количество, без персональных данных).',trendUp:'растёт',trendDown:'снижается',trendFlat:'без изменений',
+ kbTitle:'База знаний (F.A.Q.)',kbSub:'Инструкции и ответы, сгруппированные по категориям.',
+ newTitle:'Новому сотруднику',newIntro:'Добро пожаловать! Пройдите чек-лист — отметки сохраняются в браузере. Каждая задача ведёт на пошаговую инструкцию.',progress:'Прогресс',mustRead:'Обязательные инструкции на старте',isRules:'Правила ИБ: что можно и нельзя',can:'Можно',cannot:'Нельзя',
+ is_can:['Блокировать компьютер (Win + L), когда отходите','Хранить рабочие файлы в OneDrive и SharePoint','Сообщать о подозрительных письмах кнопкой «Сообщить»','Устанавливать ПО из Company Portal'],
+ is_cannot:['Сообщать кому-либо свой пароль','Устанавливать программы из интернета','Пересылать рабочие документы на личную почту','Подключать неизвестные флешки'],
+ smaxTitle:'Заявки в SMAX',smaxSub:'Как открыть, правильно заполнить и отследить заявку. Правильно оформленную заявку решают быстрее.',smaxHow:'Как создать заявку — 6 шагов',incVsReq:'Инцидент или запрос?',inc:'Инцидент',req:'Запрос',
+ incText:'Что-то сломалось или перестало работать: «Outlook не запускается», «Не работает мышь». → «Сообщить о проблеме».',reqText:'Нужно что-то получить или изменить: доступ, программа, оборудование. → «Каталог услуг».',
+ mapTitle:'Какую категорию выбрать: ситуация → категория SMAX',situation:'Ситуация',typeL:'Тип',category:'Категория SMAX',
+ examples:'Примеры заявок',bad:'Плохо',good:'Хорошо',
+ badWhy:'Нет категории, симптома, времени и контактов — заявку вернут на уточнение.',goodWhy:'Понятно, что сломалось, когда, что уже пробовали и как связаться.',
+ slaTitle:'Приоритеты и сроки (SLA)',prio:'Приоритет',when:'Когда',react:'Реакция',solve:'Решение',slaNote:'Значения — пример; утверждаются SLA ИТ-службы.',
+ tplTitle:'Шаблоны типовых заявок',copyTpl:'Скопировать',smaxGuides:'Инструкции по SMAX',
+ contactsTitle:'Контакты ИТ-поддержки',phone:'Телефон',email:'Эл. почта',teamsChat:'Чат в Teams',teamsChatV:'«ИТ-поддержка»',hours:'График работы',hoursV:'Пн–Пт 08:30–18:30; дежурный инженер для P1 — круглосуточно',
+ whenCall:'Когда звонить, а когда писать заявку',whenCallText:'Звоните, если работа полностью остановлена (P1/P2): не можете войти, массовый сбой, фишинг с переходом по ссылке. В остальных случаях создайте заявку в SMAX — так её проще отследить.',
+ escal:'Эскалация',escalRows:[['1-я линия (Service Desk)','Приём обращений, типовые решения, маршрутизация'],['2-я линия','Профильные инженеры: почта, сеть, рабочие места, доступы'],['3-я линия / руководитель ИТ-поддержки','Если нарушен срок SLA или решение не устраивает']],
+ chatTitle:'AI-ассистент',fab:'AI-ассистент',chatPh:'Ваш вопрос…',chatNote:'Отвечаю только по статьям портала. Никогда не отправляйте пароли.',
+ chatHello:'Здравствуйте! Я AI-ассистент ИТ-портала. Опишите проблему — найду инструкцию в базе знаний. Можно писать по-русски или по-казахски.',
+ chatSugg:['Меня не слышно в Teams','Как подключить почту на телефоне','Как создать заявку в SMAX'],
+ smaxModal:'Создание заявки в SMAX',smaxCatL:'Рекомендуемая категория / услуга',smaxTypeL:'Тип заявки',smaxTpl:'Шаблон описания — скопируйте в заявку',copyText:'Скопировать текст',openSmax:'Открыть SMAX ↗',smaxDemo:'Демо-режим: адрес портала SMAX задаётся в CONFIG.smaxUrl. В рабочей версии откроется SMAX с выбранной категорией (SSO).',
+ announce:'Объявление ИТ',until:'до',
+ newArticle:'+ Новая статья',naTitle:'Новая статья по шаблону',naT:'Заголовок (в формате задачи: «Как …»)',naCat:'Категория',naWho:'Для кого / где применимо',naTldr:'Кратко (1–2 предложения)',naSteps:'Шаги (каждый с новой строки, до 10)',naCheck:'Как проверить',naTags:'Теги (через пробел)',naSubmit:'Отправить на согласование',naSent:'Статья отправлена на согласование. Модератор получил уведомление в Teams.',naFill:'Заполните заголовок, «Кратко» и хотя бы 2 шага',
+ adminTitle:'Панель модератора',adminOnly:'Раздел доступен только роли «Модератор». Переключите роль в шапке.',
+ k_pub:'Опубликовано статей',k_useful:'Средняя полезность',k_fb:'Новых отзывов',k_empty:'Поисков без результата',k_ai:'Вопросов к AI без ответа',k_gap:'Пробелов в базе знаний',
+ a_pending:'На согласовании',a_none:'Нет записей',approve:'Опубликовать',reject:'Вернуть автору',a_fb:'Отзывы на статьи',a_date:'Дата',a_art:'Статья',a_reasons:'Причины',a_comment:'Комментарий',
+ fb_new:'Новый',fb_work:'В работе',fb_done:'Учтён',a_empty:'Поисковые запросы без результата',a_q:'Запрос',a_n:'Раз',a_ai:'Вопросы к AI-ассистенту без ответа',a_gaps:'Пробелы: топ-проблемы без статьи',a_stale:'Требуют пересмотра (>12 мес. или статус «На пересмотре»)',a_low:'Полезность < 50% (≥ 10 оценок)',a_nokz:'Без казахского перевода',a_life:'Жизненный цикл статей',
+ published:'Опубликовано',returned:'Возвращено автору',
+ footL:'ИТ-служба · Портал базы знаний ИТ',footR:'Прототип по PRD v1.0 · данные демонстрационные',
+ notFound:'Страница не найдена',toHome:'На главную',
+ ai_found:'Нашёл в базе знаний:',ai_more:'Остальные шаги — в статье.',ai_src:'Источник',ai_also:'Также может помочь:',ai_none:'В базе знаний нет ответа на этот вопрос, и я не буду придумывать инструкцию. Лучше создайте заявку в SMAX — инженер разберётся.',ai_cat:'Рекомендуемая категория',
+ ai_pwd:'Пожалуйста, не отправляйте пароли — ни мне, ни в заявках, ни сотрудникам ИТ. Если пароль мог стать известен другим, смените его: Ctrl + Alt + Del → «Изменить пароль».',ai_hi:'Здравствуйте! Опишите, что случилось, — подберу инструкцию.',ai_thx:'Рад помочь! Если появятся вопросы — пишите.',ai_sorry:'Жаль, что не помогло. Создайте заявку — категория уже подобрана:',ai_helped:'Ответ помог?',ai_kzfb:'(Казахская версия статьи готовится — показываю русскую.)',ai_ok:'Отлично! Спасибо за оценку.'},
+kz:{brandSub:'IT білім қоры',nav_home:'Басты бет',nav_new:'Жаңа қызметкерге',nav_kb:'Білім қоры',nav_smax:'SMAX өтінімдері',nav_top:'Топ мәселелер',nav_contacts:'Байланыс',nav_admin:'Модератор',
+ searchPh:'Мәселені сипаттаңыз: «Teams-та естілмейді», «пошта», «vpn»…',searchBtn:'Іздеу',heroTitle:'Қалай көмектесе аламыз?',heroSub:'Типтік IT сұрақтары бойынша қадамдық нұсқаулықтар 1–2 минутта. Жауап таппасаңыз — SMAX-та өтінім жасаңыз.',popular:'Жиі іздейді:',
+ role:'Рөл (демо):',role_emp:'Қызметкер',role_new:'Жаңа қызметкер',role_author:'Автор',role_mod:'Модератор',
+ tile_new:'Жаңа қызметкерге',tile_new_d:'Алғашқы күндерге арналған тізім мен нұсқаулықтар',tile_kb:'Білім қоры',tile_kb_d:'Санаттар бойынша нұсқаулықтар мен жауаптар',tile_smax:'SMAX өтінімдері',tile_smax_d:'Өтінімді қалай жасап, толтыру керек',tile_top:'Топ мәселелер',tile_top_d:'Жиі мәселелер және жылдам шешімдер',tile_contacts:'Байланыс',tile_contacts_d:'Телефон, кесте, эскалация',
+ top10Week:'Аптаның топ-10 мәселесі',allTop:'Барлық мәселелер →',fresh:'Жаңа және жаңартылған мақалалар',ctaTitle:'Жауап таппадыңыз ба?',ctaText:'SMAX-та өтінім жасаңыз — санат пен сипаттама үлгісін ұсынамыз.',createTicket:'SMAX-та өтінім жасау',askAI:'AI-көмекшіден сұрау',
+ myChecklist:'Сіздің онбординг тізіміңіз',openChecklist:'Тізімді ашу →',done:'орындалды',day1:'Бірінші күн',week1:'Бірінші апта',
+ updated:'Жаңартылды',views:'қаралым',useful:'Пайдалылық',votes:'баға',
+ s_who:'Кімге / қай жерде қолданылады',s_tldr:'Қысқаша',s_need:'Не қажет',s_steps:'Қадамдық нұсқаулық',s_check:'Бәрі жұмыс істейтінін қалай тексеру керек',s_help:'Көмектеспеді ме?',s_errors:'Жиі қателер және не істеу керек',helpText:'Өтінім жасаңыз — санат таңдалып қойған:',
+ related:'Байланысты мақалалар',toc:'Мазмұны',copyLink:'Сілтемені көшіру',print:'Басып шығару / PDF',linkCopied:'Сілтеме көшірілді',copied:'Көшірілді',important:'Маңызды',tip:'Кеңес',
+ helped:'Мақала көмектесті ме?',yes:'Иә',no:'Жоқ',thanks:'Бағаңызға рахмет!',voted:'Бағаңыз ескерілді',whyNot:'Не дұрыс емес?',r_old:'Ескірген',r_unclear:'Түсініксіз',r_notmine:'Менің мәселем емес',r_broken:'Жұмыс істемейді',comment:'Пікір (міндетті емес)',send:'Жіберу',fbSent:'Рахмет! Пікіріңіз модераторға жіберілді (Teams-та хабарлама).',pickReason:'Кемінде бір себепті таңдаңыз немесе пікір жазыңыз',
+ meta:'Мақала туралы мәлімет',author:'Автор',metaUpd:'Жаңартылған күні',review:'Келесі қайта қарау',tags:'Тегтер',smaxCat:'SMAX санаты',status:'Мәртебесі',langs:'Тілдер',
+ kzFallback:'Бұл мақаланың қазақша нұсқасы дайындалуда — орысша нұсқасы көрсетілген.',staleWarn:'Мақала 12 айдан астам қайта қаралмаған — қайта қарау қажет (тек модераторға көрінеді).',noKz:'Қазақша аудармасы жоқ',
+ type_guide:'Нұсқаулық',type_faq:'F.A.Q.',type_problem:'Мәселені шешу',
+ results:'Іздеу нәтижелері',found:'Табылды',nothingFound:'Ештеңе табылмады',nothingText:'Сұрауды басқаша жазып көріңіз, AI-көмекшіден сұраңыз немесе SMAX-та өтінім жасаңыз. Сұрау білім қорындағы олқылықты жабу үшін модераторға жіберілді.',showingFor:'Мына сұрау бойынша нәтижелер көрсетілген',
+ allCats:'Барлық санаттар',allTypes:'Барлық түрлер',allDev:'Барлық құрылғылар',articlesN:'мақала',noResultsAc:'Ештеңе табылмады — AI-көмекшіден сұрау',
+ period_week:'Апта',period_month:'Ай',period_quarter:'Тоқсан',incidents:'өтініш',quickFix:'Жылдам шешім',fullArticle:'Толық мақала →',massIssue:'Белгілі жаппай мәселе',gap:'Шешім мақаласы жоқ — білім қорындағы олқылық',gapUser:'Нұсқаулық дайындалуда. Әзірге өтінім жасаңыз.',pin:'Бекіту',unpin:'Босату',hide:'Жасыру',show:'Көрсету',pinned:'Бекітілген',hiddenL:'Пайдаланушылардан жасырылған',
+ topTitle:'Топ мәселелер және шешімдер',topSub:'SMAX инциденттер статистикасы бойынша күн сайын есептеледі (тек санаттар мен саны, дербес деректерсіз).',trendUp:'өсуде',trendDown:'төмендеуде',trendFlat:'өзгеріссіз',
+ kbTitle:'Білім қоры (F.A.Q.)',kbSub:'Санаттар бойынша топтастырылған нұсқаулықтар мен жауаптар.',
+ newTitle:'Жаңа қызметкерге',newIntro:'Қош келдіңіз! Тізімнен өтіңіз — белгілер браузерде сақталады. Әр тапсырма қадамдық нұсқаулыққа апарады.',progress:'Үлгерім',mustRead:'Бастапқы міндетті нұсқаулықтар',isRules:'АҚ ережелері: не болады, не болмайды',can:'Болады',cannot:'Болмайды',
+ is_can:['Орныңыздан кеткенде компьютерді бұғаттау (Win + L)','Жұмыс файлдарын OneDrive пен SharePoint-та сақтау','Күдікті хаттар туралы «Хабарлау» батырмасымен хабарлау','Бағдарламаларды Company Portal-дан орнату'],
+ is_cannot:['Құпиясөзді ешкімге айту','Бағдарламаларды интернеттен орнату','Жұмыс құжаттарын жеке поштаға жіберу','Белгісіз флешкаларды қосу'],
+ smaxTitle:'SMAX өтінімдері',smaxSub:'Өтінімді қалай ашу, дұрыс толтыру және бақылау керек. Дұрыс толтырылған өтінім тезірек шешіледі.',smaxHow:'Өтінім жасау — 6 қадам',incVsReq:'Инцидент пе, сұрау ма?',inc:'Инцидент',req:'Сұрау',
+ incText:'Бірдеңе бұзылды немесе жұмыс істемей қалды: «Outlook іске қосылмайды», «Тінтуір жұмыс істемейді». → «Мәселе туралы хабарлау».',reqText:'Бірдеңе алу немесе өзгерту керек: қолжетімділік, бағдарлама, жабдық. → «Қызметтер каталогы».',
+ mapTitle:'Қай санатты таңдау керек: жағдай → SMAX санаты',situation:'Жағдай',typeL:'Түрі',category:'SMAX санаты',
+ examples:'Өтінім мысалдары',bad:'Нашар',good:'Жақсы',
+ badWhy:'Санат, белгі, уақыт және байланыс жоқ — өтінім нақтылауға қайтарылады.',goodWhy:'Не бұзылғаны, қашан, не істеп көргені және қалай байланысу керектігі түсінікті.',
+ slaTitle:'Басымдықтар мен мерзімдер (SLA)',prio:'Басымдық',when:'Қашан',react:'Әрекет',solve:'Шешу',slaNote:'Мәндер — мысал; IT қызметінің SLA-сымен бекітіледі.',
+ tplTitle:'Типтік өтінім үлгілері',copyTpl:'Көшіру',smaxGuides:'SMAX бойынша нұсқаулықтар',
+ contactsTitle:'IT-қолдау байланыстары',phone:'Телефон',email:'Эл. пошта',teamsChat:'Teams-тағы чат',teamsChatV:'«IT-қолдау»',hours:'Жұмыс кестесі',hoursV:'Дс–Жм 08:30–18:30; P1 үшін кезекші инженер — тәулік бойы',
+ whenCall:'Қашан қоңырау шалу, қашан өтінім жазу керек',whenCallText:'Жұмыс толық тоқтаса (P1/P2) қоңырау шалыңыз: кіре алмайсыз, жаппай ақау, фишинг сілтемесін бастыңыз. Басқа жағдайларда SMAX-та өтінім жасаңыз — оны бақылау оңай.',
+ escal:'Эскалация',escalRows:[['1-желі (Service Desk)','Өтініштерді қабылдау, типтік шешімдер, бағыттау'],['2-желі','Бейінді инженерлер: пошта, желі, жұмыс орындары, қолжетімділік'],['3-желі / IT-қолдау басшысы','SLA мерзімі бұзылса немесе шешім қанағаттандырмаса']],
+ chatTitle:'AI-көмекші',fab:'AI-көмекші',chatPh:'Сұрағыңыз…',chatNote:'Тек портал мақалалары бойынша жауап беремін. Құпиясөздерді ешқашан жібермеңіз.',
+ chatHello:'Сәлеметсіз бе! Мен IT порталының AI-көмекшісімін. Мәселені сипаттаңыз — білім қорынан нұсқаулық табамын. Орысша немесе қазақша жаза аласыз.',
+ chatSugg:['Teams-та мені естімейді','Телефонға поштаны қалай қосуға болады','SMAX-та өтінім жасау'],
+ smaxModal:'SMAX-та өтінім жасау',smaxCatL:'Ұсынылатын санат / қызмет',smaxTypeL:'Өтінім түрі',smaxTpl:'Сипаттама үлгісі — өтінімге көшіріңіз',copyText:'Мәтінді көшіру',openSmax:'SMAX ашу ↗',smaxDemo:'Демо режимі: SMAX порталының мекенжайы CONFIG.smaxUrl-да беріледі. Жұмыс нұсқасында таңдалған санатпен SMAX ашылады (SSO).',
+ announce:'IT хабарландыруы',until:'дейін',
+ newArticle:'+ Жаңа мақала',naTitle:'Үлгі бойынша жаңа мақала',naT:'Тақырып (тапсырма форматында: «Қалай …»)',naCat:'Санат',naWho:'Кімге / қай жерде қолданылады',naTldr:'Қысқаша (1–2 сөйлем)',naSteps:'Қадамдар (әрқайсысы жаңа жолдан, 10-ға дейін)',naCheck:'Қалай тексеру керек',naTags:'Тегтер (бос орын арқылы)',naSubmit:'Келісуге жіберу',naSent:'Мақала келісуге жіберілді. Модератор Teams-та хабарлама алды.',naFill:'Тақырыпты, «Қысқаша» және кемінде 2 қадамды толтырыңыз',
+ adminTitle:'Модератор панелі',adminOnly:'Бөлім тек «Модератор» рөліне қолжетімді. Тақырыпшада рөлді ауыстырыңыз.',
+ k_pub:'Жарияланған мақалалар',k_useful:'Орташа пайдалылық',k_fb:'Жаңа пікірлер',k_empty:'Нәтижесіз іздеулер',k_ai:'AI жауап бермеген сұрақтар',k_gap:'Білім қорындағы олқылықтар',
+ a_pending:'Келісуде',a_none:'Жазбалар жоқ',approve:'Жариялау',reject:'Авторға қайтару',a_fb:'Мақалаларға пікірлер',a_date:'Күні',a_art:'Мақала',a_reasons:'Себептер',a_comment:'Пікір',
+ fb_new:'Жаңа',fb_work:'Жұмыста',fb_done:'Ескерілді',a_empty:'Нәтижесіз іздеу сұраулары',a_q:'Сұрау',a_n:'Рет',a_ai:'AI-көмекші жауап бермеген сұрақтар',a_gaps:'Олқылықтар: мақаласы жоқ топ-мәселелер',a_stale:'Қайта қарауды қажет етеді (>12 ай немесе «Қайта қаралуда»)',a_low:'Пайдалылық < 50% (≥ 10 баға)',a_nokz:'Қазақша аудармасы жоқ',a_life:'Мақалалардың өмірлік циклі',
+ published:'Жарияланды',returned:'Авторға қайтарылды',
+ footL:'IT қызметі · IT білім қоры порталы',footR:'PRD v1.0 бойынша прототип · деректер демонстрациялық',
+ notFound:'Бет табылмады',toHome:'Басты бетке',
+ ai_found:'Білім қорынан таптым:',ai_more:'Қалған қадамдар — мақалада.',ai_src:'Дереккөз',ai_also:'Бұлар да көмектесуі мүмкін:',ai_none:'Білім қорында бұл сұраққа жауап жоқ, мен нұсқаулықты ойдан шығармаймын. SMAX-та өтінім жасаған дұрыс — инженер көмектеседі.',ai_cat:'Ұсынылатын санат',
+ ai_pwd:'Құпиясөздерді жібермеңіз — маған да, өтінімдерге де, IT қызметкерлеріне де. Құпиясөз басқаларға белгілі болуы мүмкін болса, оны ауыстырыңыз: Ctrl + Alt + Del → «Құпиясөзді өзгерту».',ai_hi:'Сәлеметсіз бе! Не болғанын жазыңыз — нұсқаулық табамын.',ai_thx:'Көмектескеніме қуаныштымын! Сұрақтар болса — жазыңыз.',ai_sorry:'Көмектеспегені өкінішті. Өтінім жасаңыз — санат таңдалып қойған:',ai_helped:'Жауап көмектесті ме?',ai_kzfb:'(Мақаланың қазақша нұсқасы дайындалуда — орысшасын көрсетемін.)',ai_ok:'Тамаша! Бағаңызға рахмет.'}
+};
+const POPULAR = {ru:['не слышно в тимс','аутлук','vpn из дома','принтер не печатает','как создать заявку'],kz:['Teams-та естілмейді','пошта телефонда','VPN','принтер','өтінім жасау']};
+
+/* ---------- состояние ---------- */
+const store = {
+  get(k,d){try{const v=localStorage.getItem('itfaq.'+k);return v==null?d:JSON.parse(v)}catch(e){return d}},
+  set(k,v){try{localStorage.setItem('itfaq.'+k,JSON.stringify(v))}catch(e){}}
+};
+const state = {
+  lang: store.get('lang', (navigator.language||'').toLowerCase().startsWith('kk') ? 'kz' : 'ru'),
+  role: store.get('role','emp'),
+  period: 'week'
+};
+const SEED_FB = [
+  {id:'f1',art:'printer',reasons:['r_old'],comment:'Сервер печати переименовали, \\\\print01 не открывается',date:'2026-10-06',status:'new'},
+  {id:'f2',art:'print-queue',reasons:['r_broken'],comment:'',date:'2026-10-03',status:'work'}
+];
+const SEED_EMPTY = {'1с не запускается':{n:7,last:'2026-10-07'},'onedrive не синхронизирует':{n:5,last:'2026-10-07'},'сканер в папку':{n:4,last:'2026-10-05'}};
+const SEED_AI = [{q:'Как сканировать с МФУ в папку?',date:'2026-10-07'},{q:'Как подключить 1С удалённо',date:'2026-10-06'}];
+
+const $ = (s,r=document)=>r.querySelector(s);
+const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const t = k => (I18N[state.lang][k] ?? I18N.ru[k] ?? k);
+const L = o => o ? (o[state.lang] ?? o.ru) : '';
+const today = () => new Date().toISOString().slice(0,10);
+const fmtDate = iso => { if(!iso) return '—'; const [y,m,d]=iso.split('-'); return `${d}.${m}.${y}`; };
+const addMonths = (iso,n) => { const d=new Date(iso+'T00:00:00'); d.setMonth(d.getMonth()+n); return d.toISOString().slice(0,10); };
+const daysSince = iso => Math.floor((Date.now()-new Date(iso+'T00:00:00'))/864e5);
+
+/* статьи, опубликованные через согласование в этом браузере */
+store.get('published',[]).forEach(a=>ARTICLES.push(a));
+let BY_ID = {}; const reindexIds = ()=>{ BY_ID = Object.fromEntries(ARTICLES.map(a=>[a.id,a])); }; reindexIds();
+const art = id => BY_ID[id];
+const title = a => a.t[state.lang] || a.t.ru;
+function content(a){ if(state.lang==='kz' && a.kz) return {c:a.kz, fb:false}; return {c:a.ru, fb: state.lang==='kz'}; }
+function rating(a){ const v=store.get('votes',{})[a.id]; const up=a.up+(v==='up'?1:0), dn=a.dn+(v==='down'?1:0); const n=up+dn; return {up,dn,n,pct:n?Math.round(up/n*100):0,mine:v}; }
+function viewsOf(a){ return a.v + (store.get('views',{})[a.id]||0); }
+const inCat = (a,c) => a.cat===c || (a.also||[]).includes(c);
+
+/* ============================================================
+   Поиск: синонимы, раскладка, опечатки, морфология (упрощённо)
+   ============================================================ */
+const STOP = new Set('в во на и не как что я с со у по для меня мне а это ли же то бы о об к ко из от до при мой моя мои нас вас вы ты он она его ее их ну да нет или так уже есть был была быть когда где почему зачем можно нужно надо делать сделать мен және қалай үшін бар жоқ менің маған неге қайда'.split(' '));
+const SYN_RAW = [
+ ['outlook','аутлук','оутлук','аутлюк','ощгдщщл','щгедщщл','почта','почту','почты','почтой','пошта','поштаны','поштасы','поштаға','mail','email','owa','ящик'],
+ ['teams','тимс','тимз','тимсе','тимсы','тимсом','теамс','еуфьы'],
+ ['микрофон','микрофона','мик','mic','микрофонды','слышно','слышат','естілмейді','естімейді'],
+ ['наушники','гарнитура','гарнитуру','headset','құлаққап','звук','дыбыс','динамик'],
+ ['vpn','впн','мзт'],
+ ['wifi','вайфай','вифи','интернет','желі'],
+ ['принтер','печать','распечатать','печатает','printer','мфу','басып'],
+ ['smax','смакс','смах','ыьфч','заявка','заявку','заявки','заявок','тикет','обращение','өтінім','өтінімді'],
+ ['пароль','пароля','password','құпиясөз','құпиясөзді'],
+ ['учетка','учетная','аккаунт','account','логин','есептік'],
+ ['телефон','смартфон','мобильный','айфон','iphone','android','андроид','телефонда','телефонға'],
+ ['программа','программу','софт','приложение','software','бағдарлама','бағдарламаны'],
+ ['заблокирована','блокировка','заблокировали','бұғатталды','бұғатталған','locked'],
+ ['фишинг','phishing','спам','мошенники','подозрительное','күдікті'],
+ ['монитор','экран','дисплей','monitor'],
+ ['медленно','тормозит','баяу','долго'],
+ ['камера','вебкамера','webcam','камераны'],
+ ['папка','папке','шара','диск','қалта','қалтаға'],
+ ['onedrive','уандрайв','ондрайв'],
+ ['сканер','сканирование','сканерлеу','scan']
+];
+const EN_L = 'qwertyuiop[]asdfghjkl;\'zxcvbnm,.`', RU_L = 'йцукенгшщзхъфывапролджэячсмитьбюё';
+const swapLayout = s => [...s].map(ch=>{ let i=EN_L.indexOf(ch); if(i>=0) return RU_L[i]; i=RU_L.indexOf(ch); return i>=0?EN_L[i]:ch; }).join('');
+const norm = s => String(s||'').toLowerCase().replace(/ё/g,'е').replace(/([a-zа-яәғқңөұүһі0-9])-(?=[a-zа-яәғқңөұүһі0-9])/g,'$1').replace(/[^a-z0-9а-яәғқңөұүһі]+/g,' ').trim();
+const tokenize = s => norm(s).split(' ').filter(w=>w.length>1 && !STOP.has(w));
+const stem = w => w.length>=6 ? w.slice(0,-2) : w.length>=5 ? w.slice(0,-1) : w;
+function lev(a,b){ const m=a.length,n=b.length; let p=Array.from({length:n+1},(_,i)=>i); for(let i=1;i<=m;i++){ const c=[i]; for(let j=1;j<=n;j++) c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1)); p=c; } return p[n]; }
+const SYN = SYN_RAW.map(g=>g.map(w=>norm(w).replace(/ /g,'')));
+const SYN_IDX = new Map(); SYN.forEach((g,i)=>g.forEach(w=>{ if(!SYN_IDX.has(w)) SYN_IDX.set(w,[]); SYN_IDX.get(w).push(i); }));
+
+let POST, VOCAB, VM_CACHE;
+function buildIndex(){
+  POST = new Map(); VM_CACHE = new Map();
+  const add=(text,id,w)=>tokenize(text).forEach(word=>{ if(!POST.has(word)) POST.set(word,new Map()); const m=POST.get(word); if((m.get(id)||0)<w) m.set(id,w); });
+  ARTICLES.forEach(a=>{
+    add(a.t.ru+' '+(a.t.kz||''),a.id,3);
+    add(a.tags+' '+CATS[a.cat].ru+' '+CATS[a.cat].kz,a.id,2.5);
+    [a.ru,a.kz].filter(Boolean).forEach(c=>add([c.who,c.tldr,(c.need||[]).join(' '),(c.steps||[]).join(' '),c.check,(c.errors||[]).flat().join(' '),c.warn,c.tip].join(' '),a.id,1));
+  });
+  VOCAB = [...POST.keys()];
+}
+function vocabMatch(w){
+  if(VM_CACHE.has(w)) return VM_CACHE.get(w);
+  const out = new Map(), sw = stem(w), maxD = w.length>=7?2:1;
+  for(const v of VOCAB){
+    if(v===w){ out.set(v,1); continue; }
+    if(w.length>=4 && v.length>=4 && (v.startsWith(sw) || w.startsWith(stem(v)))){ out.set(v,.8); continue; }
+    if(w.length>=5 && Math.abs(v.length-w.length)<=maxD && lev(w,v)<=maxD) out.set(v,.6);
+  }
+  VM_CACHE.set(w,out); return out;
+}
+function expand(term){
+  const out = new Map([[term,1]]);
+  const gs = new Set(SYN_IDX.get(term)||[]);
+  if(!gs.size && term.length>=5){ const st=stem(term); SYN.forEach((g,i)=>{ if(g.some(w=>w.length>=5 && (w.startsWith(st)||term.startsWith(stem(w))))) gs.add(i); }); }
+  gs.forEach(i=>SYN[i].forEach(w=>{ if(!out.has(w)) out.set(w,.85); }));
+  return [...out];
+}
+function termScores(term, matched){
+  const out = new Map(); let total = 0;
+  for(const [w,f] of expand(term)){
+    for(const [v,q] of vocabMatch(w)){
+      matched && matched.add(v);
+      for(const [id,fw] of POST.get(v)){ const s=q*fw*f; if(s>(out.get(id)||0)) out.set(id,s); }
+    }
+  }
+  out.forEach(s=>total+=s);
+  return {out,total};
+}
+function search(q){
+  const toks = tokenize(q); const matched = new Set();
+  if(!toks.length) return {res:[],corrected:null,matched};
+  const scores = new Map(), hits = new Map(); const corr = []; let swapped = false;
+  toks.forEach(tok=>{
+    const variants = [tok]; const sw = swapLayout(tok);
+    if(sw!==tok && (/^[a-z\[\];',.`]+$/.test(tok) || /^[а-яё]+$/.test(tok))) variants.push(norm(sw).replace(/ /g,''));
+    let best = null;
+    variants.forEach((v,i)=>{ if(!v) return; const r = termScores(v); if(!best || r.total > best.total*1.5 && i>0 || (i===0 && !best)) best = {...r,v,i}; });
+    if(best.i>0 && best.total>0) swapped = true;
+    termScores(best.v, matched);
+    corr.push(best.v);
+    best.out.forEach((s,id)=>{ scores.set(id,(scores.get(id)||0)+s); hits.set(id,(hits.get(id)||0)+1); });
+  });
+  const res = [...scores].map(([id,s])=>{ const cov=hits.get(id)/toks.length; return {id,score:s*(.5+.5*cov),cov}; })
+    .filter(r=>r.score>=0.9 && art(r.id)).sort((a,b)=>b.score-a.score);
+  return {res, corrected: swapped ? corr.join(' ') : null, matched};
+}
+function hl(text, matched){
+  const e = esc(text); if(!matched || !matched.size) return e;
+  return e.replace(/[A-Za-zА-Яа-яЁёӘәҒғҚқҢңӨөҰұҮүҺһІі0-9-]+/g, w => matched.has(norm(w).replace(/ /g,'')) ? `<mark>${w}</mark>` : w);
+}
+buildIndex();
+
+/* ============================================================
+   Общие компоненты
+   ============================================================ */
+function searchBox(q='',big=false){
+  return `<form class="sbox ${big?'big':''}" data-search role="search"><span class="sico" aria-hidden="true">🔍</span><input class="js-search" type="search" name="q" autocomplete="off" value="${esc(q)}" placeholder="${esc(t('searchPh'))}" aria-label="${esc(t('searchBtn'))}"><button class="btn primary" type="submit">${t('searchBtn')}</button><div class="ac" hidden></div></form>`;
+}
+const subSearch = (q='') => `<div class="subsearch no-print"><div class="wrap">${searchBox(q)}</div></div>`;
+const typeBadge = a => `<span class="badge ${a.type==='problem'?'warn':a.type==='faq'?'':'blue'}">${t('type_'+a.type)}</span>`;
+const trendHtml = v => v>0?`<span class="trend up" title="${t('trendUp')}">↑</span>`:v<0?`<span class="trend down" title="${t('trendDown')}">↓</span>`:`<span class="trend flat" title="${t('trendFlat')}">→</span>`;
+function articleItem(a, matched){
+  const r = rating(a); const {c} = content(a);
+  return `<a class="aitem" href="#/article/${a.id}"><h3>${hl(title(a),matched)}</h3><p>${hl(c.tldr,matched)}</p>
+   <div class="row">${typeBadge(a)}<span class="badge">${CATS[a.cat].ic} ${esc(L(CATS[a.cat]))}</span><span>· ${t('updated')}: ${fmtDate(a.upd)}</span>${r.n?`<span>· 👍 ${r.pct}%</span>`:''}${state.lang==='kz'&&!a.kz?`<span class="badge">RU</span>`:''}</div></a>`;
+}
+function crumbs(items){ return `<div class="crumbs"><a href="#/">${t('nav_home')}</a>${items.map(([h,l])=>`<span>›</span>${h?`<a href="${h}">${esc(l)}</a>`:esc(l)}`).join('')}</div>`; }
+function cta(){ return `<div class="cta no-print"><div><h3>${t('ctaTitle')}</h3><p>${t('ctaText')}</p></div><div class="flex"><button class="btn" data-act="ask-ai">🤖 ${t('askAI')}</button><button class="btn primary" data-act="smax">🎫 ${t('createTicket')}</button></div></div>`; }
+function topItems(period, forMod){
+  const ov = store.get('topov',{pin:[],hide:[]});
+  let items = TOP.map(x=>({...x,n:x.c[period],trend:x.tr[period],pinned:ov.pin.includes(x.id),hidden:ov.hide.includes(x.id)}));
+  if(!forMod) items = items.filter(x=>!x.hidden);
+  items.sort((a,b)=>(b.pinned-a.pinned)||(b.n-a.n));
+  return items;
+}
+function announcement(){
+  if(store.get('bannerOff','')===today()) return '';
+  const endD = new Date(); endD.setDate(endD.getDate()+3); const until = endD.toISOString().slice(0,10);
+  const text = state.lang==='kz'
+    ? `Жоспарлы жұмыстар: сенбі 20:00–23:00 аралығында пошта сервері қолжетімсіз болуы мүмкін. Хаттар жоғалмайды — жұмыстан кейін жеткізіледі.`
+    : `Плановые работы: в субботу с 20:00 до 23:00 почтовый сервер может быть недоступен. Письма не потеряются — будут доставлены после окончания работ.`;
+  return `<div class="banner no-print" role="status"><span>📢</span><div><b>${t('announce')}</b> <span class="muted small">(${t('until')} ${fmtDate(until)})</span><br>${esc(text)}</div><button class="x" data-act="banner-off" aria-label="Close">✕</button></div>`;
+}
+function checklistProgress(){ const st=store.get('checklist',{}); const all=[...CHECKLIST.day1,...CHECKLIST.week1]; const d=all.filter(i=>st[i.id]).length; return {d,n:all.length,pct:Math.round(d/all.length*100),st}; }
+function checklistHtml(group, st){
+  return `<ul class="chk">${CHECKLIST[group].map(i=>`<li class="${st[i.id]?'done':''}"><input type="checkbox" data-chk="${i.id}" id="ck-${i.id}" ${st[i.id]?'checked':''}><label class="ct" for="ck-${i.id}">${esc(L(i))}</label><a class="small" href="#/article/${i.art}">→</a></li>`).join('')}</ul>`;
+}
+
+/* ============================================================
+   Страницы
+   ============================================================ */
+function viewHome(){
+  const top = topItems('week',false).slice(0,10);
+  const fresh = ARTICLES.filter(a=>(a.st||'pub')==='pub').slice().sort((a,b)=>b.upd.localeCompare(a.upd)).slice(0,6);
+  let chk = '';
+  if(state.role==='new'){
+    const p = checklistProgress();
+    const next = [...CHECKLIST.day1,...CHECKLIST.week1].filter(i=>!p.st[i.id]).slice(0,3);
+    chk = `<section class="card mt"><div class="sec-head"><h2>✅ ${t('myChecklist')}</h2><a href="#/new">${t('openChecklist')}</a></div>
+      <div class="flex small muted">${t('progress')}: ${p.d}/${p.n} ${t('done')}</div><div class="progress"><i style="width:${p.pct}%"></i></div>
+      <ul class="chk">${next.map(i=>`<li><input type="checkbox" data-chk="${i.id}" id="hk-${i.id}"><label class="ct" for="hk-${i.id}">${esc(L(i))}</label><a class="small" href="#/article/${i.art}">→</a></li>`).join('')}</ul></section>`;
+  }
+  const tiles = [['new','🚀'],['kb','📚'],['smax','🎫'],['top','🔥'],['contacts','☎️']];
+  return `<section class="hero"><div class="wrap"><h1>${t('heroTitle')}</h1><p>${t('heroSub')}</p>${searchBox('',true)}
+    <div class="chips"><span>${t('popular')}</span>${POPULAR[state.lang].map(p=>`<a class="chip" href="#/search?q=${encodeURIComponent(p)}">${esc(p)}</a>`).join('')}</div></div></section>
+   <div class="wrap">${announcement()}${chk}
+    <div class="tiles">${tiles.map(([k,ic])=>`<a class="tile" href="#/${k}"><div class="ic">${ic}</div><b>${t('tile_'+k)}</b><span>${t('tile_'+k+'_d')}</span></a>`).join('')}</div>
+    <div class="grid2">
+     <section class="card"><div class="sec-head"><h2>🔥 ${t('top10Week')}</h2><a href="#/top">${t('allTop')}</a></div>
+      <ol class="toplist">${top.map((x,i)=>`<li><a href="${x.art?'#/article/'+x.art:'#/top'}"><span class="rank">${i+1}</span><span class="tt">${esc(L(x.t))}${x.mass?' <span class="badge bad">⚠</span>':''}${x.art?'':` <span class="badge warn">${state.lang==='kz'?'дайындалуда':'готовится'}</span>`}</span><span class="cnt">${x.n}${trendHtml(x.trend)}</span></a></li>`).join('')}</ol></section>
+     <section class="card"><div class="sec-head"><h2>🆕 ${t('fresh')}</h2></div><div class="alist">${fresh.map(a=>articleItem(a)).join('')}</div></section>
+    </div>${cta()}</div>`;
+}
+
+function viewNew(){
+  const p = checklistProgress();
+  const must = ['login','pwd-change','outlook-pc','owa','outlook-mobile','headset-win','teams-test','wifi','vpn','printer','smax-create'].map(art).filter(Boolean);
+  return subSearch() + `<div class="wrap page">${crumbs([[null,t('newTitle')]])}<h1>🚀 ${t('newTitle')}</h1><p class="muted">${t('newIntro')}</p>
+   <div class="card"><div class="flex small muted">${t('progress')}: <b id="prgTxt">${p.d}/${p.n}</b> ${t('done')}</div><div class="progress"><i id="prgBar" style="width:${p.pct}%"></i></div>
+    <div class="grid2" style="margin-top:0"><div><h2>☀️ ${t('day1')}</h2>${checklistHtml('day1',p.st)}</div><div><h2>📅 ${t('week1')}</h2>${checklistHtml('week1',p.st)}</div></div></div>
+   <div class="card"><h2>🛡️ ${t('isRules')}</h2><div class="dos"><div class="example good"><h3>✅ ${t('can')}</h3><ul>${t('is_can').map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><div class="example bad"><h3>⛔ ${t('cannot')}</h3><ul>${t('is_cannot').map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div></div>
+   <h2 class="mt">📘 ${t('mustRead')}</h2><div class="alist">${must.map(a=>articleItem(a)).join('')}</div>${cta()}</div>`;
+}
+
+function viewKb(cat){
+  if(cat && CATS[cat]){
+    const list = ARTICLES.filter(a=>inCat(a,cat));
+    return subSearch() + `<div class="wrap page">${crumbs([['#/kb',t('nav_kb')],[null,L(CATS[cat])]])}<h1>${CATS[cat].ic} ${esc(L(CATS[cat]))}</h1><p class="muted">${list.length} ${t('articlesN')}</p><div class="alist">${list.map(a=>articleItem(a)).join('')}</div>${cta()}</div>`;
+  }
+  return subSearch() + `<div class="wrap page">${crumbs([[null,t('nav_kb')]])}<h1>📚 ${t('kbTitle')}</h1><p class="muted">${t('kbSub')}</p>
+   <div class="cats">${Object.keys(CATS).map(k=>{ const list=ARTICLES.filter(a=>inCat(a,k)); return `<a class="catcard" href="#/kb/${k}"><div class="h"><span class="ic">${CATS[k].ic}</span><b>${esc(L(CATS[k]))}</b><span class="badge" style="margin-left:auto">${list.length}</span></div><ul>${list.slice(0,3).map(a=>`<li>${esc(title(a))}</li>`).join('')}</ul></a>`; }).join('')}</div>${cta()}</div>`;
+}
+
+function viewArticle(id){
+  const a = art(id); if(!a) return viewNotFound();
+  const views = store.get('views',{}); views[id]=(views[id]||0)+1; store.set('views',views);
+  const {c,fb} = content(a); const r = rating(a); const isMod = state.role==='mod';
+  const secs = [];
+  const S = (key,html)=>{ secs.push(key); return `<section class="asec" id="s-${key}"><h2>${t('s_'+key)}</h2>${html}</section>`; };
+  let body = '';
+  if(c.who) body += S('who',`<p>${esc(c.who)}</p>`);
+  body += S('tldr',`<div class="tldr">${esc(c.tldr)}</div>`);
+  if(c.need && c.need.length) body += S('need',`<ul>${c.need.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`);
+  body += S('steps',`${c.warn?`<div class="callout warn"><b>⚠️ ${t('important')}</b>${esc(c.warn)}</div>`:''}<ol class="steps">${c.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol>${c.tip?`<div class="callout tip"><b>💡 ${t('tip')}</b>${esc(c.tip)}</div>`:''}`);
+  if(c.check) body += S('check',`<p>✅ ${esc(c.check)}</p>`);
+  if(c.errors && c.errors.length) body += S('errors',`<dl class="errs">${c.errors.map(([q,s])=>`<dt>${esc(q)}</dt><dd>${esc(s)}</dd>`).join('')}</dl>`);
+  body += S('help',`<p>${t('helpText')} <b>${esc(a.smax)}</b></p><button class="btn primary no-print" data-act="smax" data-id="${a.id}">🎫 ${t('createTicket')}</button>`);
+  const related = ARTICLES.filter(x=>x.id!==a.id && (inCat(x,a.cat)||inCat(a,x.cat))).slice(0,4);
+  const st = a.st||'pub';
+  const stale = daysSince(a.upd)>365 || st==='review';
+  return subSearch() + `<div class="wrap page">${crumbs([['#/kb',t('nav_kb')],['#/kb/'+a.cat,L(CATS[a.cat])],[null,title(a)]])}
+   <div class="art"><article class="card">
+    ${isMod && stale?`<div class="callout warn"><b>🕒 ${t('review')}</b>${t('staleWarn')}</div>`:''}
+    ${isMod && !a.kz?`<div class="callout info"><b>🌐 KZ</b>${t('noKz')}</div>`:''}
+    ${fb?`<div class="callout info">🌐 ${t('kzFallback')}</div>`:''}
+    <h1>${esc(title(a))}</h1>
+    <div class="ameta">${typeBadge(a)}<span>${t('updated')}: ${fmtDate(a.upd)}</span><span>👁 ${viewsOf(a).toLocaleString('ru-RU')} ${t('views')}</span><span>👍 ${t('useful')}: ${r.pct}%</span>${isMod?`<span class="badge ${st==='pub'?'ok':'warn'}">${L(STATUS[st])}</span>`:''}</div>
+    ${body}
+    <section class="asec no-print" id="rate">${rateWidget(a)}</section>
+    <section class="asec"><h2>${t('meta')}</h2><dl class="metagrid"><dt>${t('author')}</dt><dd>${esc(L(AU[a.au]||{ru:a.au}))}</dd><dt>${t('metaUpd')}</dt><dd>${fmtDate(a.upd)}</dd><dt>${t('review')}</dt><dd>${fmtDate(addMonths(a.upd,6))}</dd><dt>${t('smaxCat')}</dt><dd>${esc(a.smax)}</dd><dt>${t('langs')}</dt><dd>RU${a.kz?' · KZ':''}</dd><dt>${t('tags')}</dt><dd>${a.tags.split(' ').slice(0,8).map(x=>`<a class="chip" href="#/search?q=${encodeURIComponent(x)}">${esc(x)}</a>`).join(' ')}</dd></dl></section>
+   </article>
+   <aside class="aside no-print">
+    <div class="card toc"><h3>${t('toc')}</h3>${secs.map(k=>`<a data-act="scroll" data-to="s-${k}">${t('s_'+k)}</a>`).join('')}</div>
+    <div class="card"><div class="stat"><span>${t('useful')}</span><b>${r.pct}%</b></div><div class="bar"><i style="width:${r.pct}%"></i></div><div class="stat muted small"><span>${r.n} ${t('votes')}</span><span>👁 ${viewsOf(a)}</span></div>
+     <div class="flex mt"><button class="btn sm" data-act="copylink">🔗 ${t('copyLink')}</button><button class="btn sm" data-act="print">🖨️ ${t('print')}</button></div></div>
+    ${related.length?`<div class="card"><h3>${t('related')}</h3>${related.map(x=>`<p style="margin:0 0 8px"><a href="#/article/${x.id}">${esc(title(x))}</a></p>`).join('')}</div>`:''}
+   </aside></div></div>`;
+}
+function rateWidget(a){
+  const r = rating(a);
+  if(r.mine) return `<h2>${t('helped')}</h2><p class="muted">✔ ${t('voted')} (${r.mine==='up'?'👍':'👎'})</p>`;
+  return `<h2>${t('helped')}</h2><div class="rate"><button class="btn ok" data-act="vote" data-v="up" data-id="${a.id}">👍 ${t('yes')}</button><button class="btn bad" data-act="vote" data-v="down" data-id="${a.id}">👎 ${t('no')}</button></div>`;
+}
+function feedbackForm(a){
+  return `<h2>${t('whyNot')}</h2><form id="fbForm" data-id="${a.id}"><div class="reasons">${['r_old','r_unclear','r_notmine','r_broken'].map(k=>`<label><input type="checkbox" name="r" value="${k}"> ${t(k)}</label>`).join('')}</div>
+   <label class="field"><span>${t('comment')}</span><textarea name="c" rows="3" maxlength="1000"></textarea></label><div class="flex"><button class="btn primary" type="submit">${t('send')}</button><button class="btn" type="button" data-act="smax" data-id="${a.id}">🎫 ${t('createTicket')}</button></div></form>`;
+}
+
+let lastLoggedEmpty = '';
+function viewSearch(q, f){
+  const {res,corrected,matched} = search(q);
+  const list = res.map(r=>art(r.id)).filter(a=>(!f.cat||inCat(a,f.cat)) && (!f.type||a.type===f.type) && (!f.dev||a.dev.includes(f.dev)||a.dev.includes('any')));
+  if(q && !res.length && lastLoggedEmpty!==q){ lastLoggedEmpty=q; const em=store.get('empty',SEED_EMPTY); const k=norm(q); em[k]={n:((em[k]||{}).n||0)+1,last:today()}; store.set('empty',em); }
+  const sel = (name,opts,val)=>`<select data-filter="${name}">${opts.map(([v,l])=>`<option value="${v}" ${v===(val||'')?'selected':''}>${esc(l)}</option>`).join('')}</select>`;
+  const filters = `<div class="filters">${sel('cat',[['',t('allCats')],...Object.keys(CATS).map(k=>[k,L(CATS[k])])],f.cat)}${sel('type',[['',t('allTypes')],['guide',t('type_guide')],['faq',t('type_faq')],['problem',t('type_problem')]],f.type)}${sel('dev',[['',t('allDev')],...['win','mac','ios','android'].map(k=>[k,DEV[k]])],f.dev)}</div>`;
+  const empty = `<div class="card empty"><div class="ic">🤔</div><h2>${t('nothingFound')}</h2><p class="muted">${t('nothingText')}</p><div class="flex" style="justify-content:center"><button class="btn" data-act="ask-ai" data-q="${esc(q)}">🤖 ${t('askAI')}</button><button class="btn primary" data-act="smax">🎫 ${t('createTicket')}</button></div></div>`;
+  return subSearch(q) + `<div class="wrap page">${crumbs([[null,t('results')]])}<h1>${t('results')}: «${esc(q)}»</h1>
+    ${corrected?`<p class="callout info">⌨️ ${t('showingFor')} «<b>${esc(corrected)}</b>»</p>`:''}
+    ${filters}<p class="muted">${t('found')}: ${list.length}</p>
+    ${list.length?`<div class="alist">${list.map(a=>articleItem(a,matched)).join('')}</div>${cta()}`:empty}</div>`;
+}
+
+function viewSmax(){
+  const guides = ['smax-login','smax-create','smax-category','smax-status','smax-incident'].map(art);
+  const steps = content(art('smax-create')).c.steps;
+  const kz = state.lang==='kz';
+  return subSearch() + `<div class="wrap page">${crumbs([[null,t('smaxTitle')]])}
+   <div class="flex" style="justify-content:space-between"><div><h1>🎫 ${t('smaxTitle')}</h1><p class="muted" style="max-width:700px">${t('smaxSub')}</p></div><button class="btn primary" data-act="smax">${t('createTicket')}</button></div>
+   <div class="card"><h2>${t('smaxHow')}</h2><ol class="steps">${steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol></div>
+   <div class="card"><h2>${t('incVsReq')}</h2><div class="dos"><div class="example bad"><h3>🔧 ${t('inc')}</h3><p style="margin:0">${t('incText')}</p></div><div class="example good"><h3>📦 ${t('req')}</h3><p style="margin:0">${t('reqText')}</p></div></div></div>
+   <div class="card"><h2>${t('mapTitle')}</h2><div class="tblwrap"><table class="tbl"><thead><tr><th>${t('situation')}</th><th>${t('typeL')}</th><th>${t('category')}</th><th></th></tr></thead><tbody>
+    ${SMAX_MAP.map(r=>`<tr><td>${esc(kz?r[1]:r[0])}</td><td><span class="badge ${r[2]==='inc'?'bad':'blue'}">${t(r[2])}</span></td><td><b>${esc(r[3])}</b></td><td><button class="btn sm" data-act="smax" data-cat="${esc(r[3])}" data-type="${r[2]}">${kz?'Жасау':'Создать'}</button></td></tr>`).join('')}</tbody></table></div></div>
+   <div class="card"><h2>${t('examples')}</h2><div class="dos">
+    <div class="example bad"><h3>❌ ${t('bad')}</h3><pre class="tpl">${kz?'Тақырып: Көмектесіңіз!!!\nСипаттама: Ештеңе жұмыс істемейді, тез жасаңыз':'Тема: Помогите!!!\nОписание: Ничего не работает, срочно сделайте'}</pre><p class="small" style="margin:0">${t('badWhy')}</p></div>
+    <div class="example good"><h3>✅ ${t('good')}</h3><pre class="tpl">${kz?'Санат: Почта → Outlook\nТақырып: Windows жаңартылғаннан кейін Outlook іске қосылмайды\nСипаттама: 08.10 күні 09:30-дан бастап Outlook «Профиль жүктелуде» кезеңінде қатып қалады. Қайта жүктеу көмектеспеді, қауіпсіз режимде (outlook.exe /safe) ашылады.\nИнв. № ДК: NB-02341 · Тел.: ішкі 2345':'Категория: Почта → Outlook\nТема: Outlook не запускается после обновления Windows\nОписание: С 09:30 08.10 Outlook зависает на «Загрузка профиля». Перезагрузка не помогла, в безопасном режиме (outlook.exe /safe) запускается.\nИнв. № ПК: NB-02341 · Тел.: вн. 2345'}</pre><p class="small" style="margin:0">${t('goodWhy')}</p></div></div></div>
+   <div class="card"><h2>${t('slaTitle')}</h2><div class="tblwrap"><table class="tbl"><thead><tr><th>${t('prio')}</th><th>${t('when')}</th><th>${t('react')}</th><th>${t('solve')}</th></tr></thead><tbody>
+    ${SLA.map(r=>`<tr><td><b>${r[0]}</b> · ${esc(L(r[1]))}</td><td>${esc(L(r[2]))}</td><td>${esc(L(r[3]))}</td><td>${esc(L(r[4]))}</td></tr>`).join('')}</tbody></table></div><p class="small muted">${t('slaNote')}</p></div>
+   <div class="card"><h2>${t('tplTitle')}</h2><div class="grid2" style="margin-top:0">${TEMPLATES.map((x,i)=>`<div><div class="flex" style="justify-content:space-between"><h3 style="margin:0">${esc(L(x))}</h3><button class="btn sm" data-act="copy-tpl" data-i="${i}">📋 ${t('copyTpl')}</button></div><pre class="tpl">${esc(x.text)}</pre></div>`).join('')}</div></div>
+   <h2 class="mt">${t('smaxGuides')}</h2><div class="alist">${guides.map(a=>articleItem(a)).join('')}</div></div>`;
+}
+
+function viewTop(){
+  const isMod = state.role==='mod';
+  const items = topItems(state.period,isMod);
+  return subSearch() + `<div class="wrap page">${crumbs([[null,t('topTitle')]])}<h1>🔥 ${t('topTitle')}</h1><p class="muted">${t('topSub')}</p>
+   <div class="tabs" role="tablist">${['week','month','quarter'].map(p=>`<button role="tab" class="${state.period===p?'on':''}" data-act="period" data-p="${p}">${t('period_'+p)}</button>`).join('')}</div>
+   <div class="alist mt">${items.map((x,i)=>{ const a=x.art&&art(x.art); const steps=a?content(a).c.steps.slice(0,3):[];
+     return `<div class="card prob ${!a&&isMod?'gap':''} ${x.hidden?'hidden':''}" style="margin:0"><span class="rank">${i+1}</span><div>
+      <h3 style="margin:0 0 2px">${esc(L(x.t))} ${x.pinned?`<span class="badge blue">📌 ${t('pinned')}</span>`:''} ${x.hidden?`<span class="badge">${t('hiddenL')}</span>`:''}</h3>
+      <p class="muted small" style="margin:0 0 6px">${esc(L(x.s))}</p>
+      ${x.mass?`<div class="callout warn" style="margin:6px 0"><b>⚠️ ${t('massIssue')}</b>${esc(L(x.mass))}</div>`:''}
+      ${a?`<b class="small">${t('quickFix')}:</b><ol>${steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol><a href="#/article/${a.id}">${t('fullArticle')}</a>`
+         :`<p class="small">${isMod?`<span class="badge warn">⚠ ${t('gap')}</span>`:esc(t('gapUser'))}</p><button class="btn sm" data-act="smax">🎫 ${t('createTicket')}</button>`}
+      ${isMod?`<div class="modbar"><button class="btn sm" data-act="pin" data-id="${x.id}">📌 ${x.pinned?t('unpin'):t('pin')}</button><button class="btn sm" data-act="hide" data-id="${x.id}">${x.hidden?'👁 '+t('show'):'🙈 '+t('hide')}</button></div>`:''}
+     </div><div class="n">${x.n}${trendHtml(x.trend)}<small>${t('incidents')}</small></div></div>`; }).join('')}</div>${cta()}</div>`;
+}
+
+function viewContacts(){
+  return subSearch() + `<div class="wrap page">${crumbs([[null,t('contactsTitle')]])}<h1>☎️ ${t('contactsTitle')}</h1>
+   <div class="grid3"><div class="card" style="margin:0"><h3>📞 ${t('phone')}</h3><p style="font-size:22px;margin:0"><b>${state.lang==='kz'?'ішкі':'вн.'} ${CONFIG.phone}</b></p></div>
+    <div class="card" style="margin:0"><h3>✉️ ${t('email')}</h3><p style="margin:0"><a href="mailto:${CONFIG.email}">${CONFIG.email}</a></p></div>
+    <div class="card" style="margin:0"><h3>💬 ${t('teamsChat')}</h3><p style="margin:0">${t('teamsChatV')}</p></div></div>
+   <div class="card mt"><h3>🕘 ${t('hours')}</h3><p style="margin:0">${t('hoursV')}</p></div>
+   <div class="card"><h2>${t('whenCall')}</h2><p style="margin:0">${t('whenCallText')}</p></div>
+   <div class="card"><h2>${t('escal')}</h2><table class="tbl"><tbody>${t('escalRows').map((r,i)=>`<tr><td><span class="rank" style="display:inline-grid">${i+1}</span></td><td><b>${esc(r[0])}</b></td><td>${esc(r[1])}</td></tr>`).join('')}</tbody></table></div>${cta()}</div>`;
+}
+
+function viewAdmin(){
+  if(state.role!=='mod') return `<div class="wrap page"><div class="card empty"><div class="ic">🔒</div><h2>${t('adminTitle')}</h2><p class="muted">${t('adminOnly')}</p></div></div>`;
+  const fb = store.get('feedback',SEED_FB), em = store.get('empty',SEED_EMPTY), ai = store.get('aiMissed',SEED_AI), drafts = store.get('drafts',[]);
+  const pub = ARTICLES.filter(a=>(a.st||'pub')==='pub');
+  let up=0,n=0; ARTICLES.forEach(a=>{ const r=rating(a); up+=r.up; n+=r.n; });
+  const gaps = TOP.filter(x=>!x.art);
+  const stale = ARTICLES.filter(a=>daysSince(a.upd)>365 || a.st==='review');
+  const low = ARTICLES.filter(a=>{ const r=rating(a); return r.n>=10 && r.pct<50; });
+  const nokz = ARTICLES.filter(a=>!a.kz);
+  const counts = {draft:0,pending:drafts.filter(d=>d.status==='pending').length,pub:pub.length,review:ARTICLES.filter(a=>a.st==='review').length,arch:0};
+  const kpi = (v,l)=>`<div class="kpi"><b>${v}</b><span>${l}</span></div>`;
+  const aLink = id => { const a=art(id); return a?`<a href="#/article/${id}">${esc(title(a))}</a>`:esc(id); };
+  const none = `<p class="muted">${t('a_none')}</p>`;
+  return `<div class="wrap page">${crumbs([[null,t('adminTitle')]])}<h1>🛠️ ${t('adminTitle')}</h1>
+   <div class="kpis">${kpi(pub.length,t('k_pub'))}${kpi((n?Math.round(up/n*100):0)+'%',t('k_useful'))}${kpi(fb.filter(f=>f.status==='new').length,t('k_fb'))}${kpi(Object.keys(em).length,t('k_empty'))}${kpi(ai.length,t('k_ai'))}${kpi(gaps.length,t('k_gap'))}</div>
+   <div class="card mt"><h2>${t('a_life')}</h2><div class="flex">${Object.keys(STATUS).map((k,i)=>`<span class="badge ${k==='pub'?'ok':k==='pending'||k==='review'?'warn':''}">${L(STATUS[k])}: ${counts[k]}</span>${i<4?'→':''}`).join(' ')}</div></div>
+   <div class="card"><h2>📝 ${t('a_pending')}</h2>${drafts.filter(d=>d.status==='pending').map(d=>`<div class="aitem" style="margin-bottom:8px"><h3>${esc(d.t.ru)}</h3><p>${esc(d.ru.tldr)}</p><div class="row"><span class="badge">${esc(L(CATS[d.cat]))}</span><span>${fmtDate(d.upd)}</span></div><div class="modbar"><button class="btn sm ok" data-act="approve" data-id="${d.id}">✔ ${t('approve')}</button><button class="btn sm bad" data-act="reject" data-id="${d.id}">↩ ${t('reject')}</button></div></div>`).join('')||none}</div>
+   <div class="card"><h2>💬 ${t('a_fb')}</h2>${fb.length?`<div class="tblwrap"><table class="tbl"><thead><tr><th>${t('a_date')}</th><th>${t('a_art')}</th><th>${t('a_reasons')}</th><th>${t('a_comment')}</th><th>${t('status')}</th></tr></thead><tbody>
+     ${fb.slice().reverse().map(f=>`<tr><td>${fmtDate(f.date)}</td><td>${aLink(f.art)}</td><td>${f.reasons.map(r=>`<span class="badge">${t(r)}</span>`).join(' ')}</td><td>${esc(f.comment)||'—'}</td><td><select data-fbstatus="${f.id}">${['new','work','done'].map(s=>`<option value="${s}" ${f.status===s?'selected':''}>${t('fb_'+s)}</option>`).join('')}</select></td></tr>`).join('')}</tbody></table></div>`:none}</div>
+   <div class="grid2"><div class="card" style="margin:0"><h2>🔎 ${t('a_empty')}</h2>${Object.keys(em).length?`<table class="tbl"><thead><tr><th>${t('a_q')}</th><th>${t('a_n')}</th><th>${t('a_date')}</th></tr></thead><tbody>${Object.entries(em).sort((a,b)=>b[1].n-a[1].n).map(([q,v])=>`<tr><td>${esc(q)}</td><td>${v.n}</td><td>${fmtDate(v.last)}</td></tr>`).join('')}</tbody></table>`:none}</div>
+    <div class="card" style="margin:0"><h2>🤖 ${t('a_ai')}</h2>${ai.length?`<table class="tbl"><tbody>${ai.slice().reverse().map(x=>`<tr><td>${esc(x.q)}</td><td class="muted">${fmtDate(x.date)}</td></tr>`).join('')}</tbody></table>`:none}</div></div>
+   <div class="grid2"><div class="card" style="margin:0"><h2>🕳️ ${t('a_gaps')}</h2>${gaps.map(x=>`<p style="margin:0 0 6px">• ${esc(L(x.t))} <span class="muted small">(${x.c.week}/${t('period_week').toLowerCase()})</span></p>`).join('')||none}</div>
+    <div class="card" style="margin:0"><h2>🕒 ${t('a_stale')}</h2>${stale.map(a=>`<p style="margin:0 0 6px">• ${aLink(a.id)} <span class="muted small">${fmtDate(a.upd)}</span></p>`).join('')||none}</div></div>
+   <div class="grid2"><div class="card" style="margin:0"><h2>📉 ${t('a_low')}</h2>${low.map(a=>`<p style="margin:0 0 6px">• ${aLink(a.id)} — <b>${rating(a).pct}%</b></p>`).join('')||none}</div>
+    <div class="card" style="margin:0"><h2>🌐 ${t('a_nokz')} (${nokz.length}/${ARTICLES.length})</h2><p class="small" style="margin:0">${nokz.map(a=>aLink(a.id)).join(' · ')}</p></div></div></div>`;
+}
+const viewNotFound = () => `<div class="wrap page"><div class="card empty"><div class="ic">🧭</div><h2>${t('notFound')}</h2><a class="btn primary" href="#/">${t('toHome')}</a></div></div>`;
+
+/* ============================================================
+   Роутер и «рамка» страницы
+   ============================================================ */
+function renderChrome(route){
+  document.documentElement.lang = state.lang==='kz'?'kk':'ru';
+  $('#brandSub').textContent = t('brandSub');
+  const nav = [['','nav_home'],['new','nav_new'],['kb','nav_kb'],['smax','nav_smax'],['top','nav_top'],['contacts','nav_contacts']];
+  if(state.role==='mod') nav.push(['admin','nav_admin']);
+  $('#nav').innerHTML = nav.map(([h,k])=>`<a href="#/${h}" class="${route===h||(route==='article'&&h==='kb')?'active':''}">${t(k)}</a>`).join('') + (state.role==='author'?`<a href="javascript:void 0" data-act="new-article" style="color:var(--brand);font-weight:700">${t('newArticle')}</a>`:'');
+  document.querySelectorAll('.langsw button').forEach(b=>b.classList.toggle('on',b.dataset.l===state.lang));
+  $('#roleLbl').textContent = t('role');
+  $('#roleSel').innerHTML = ['emp','new','author','mod'].map(r=>`<option value="${r}" ${state.role===r?'selected':''}>${t('role_'+r)}</option>`).join('');
+  $('#footL').textContent = t('footL'); $('#footR').textContent = t('footR');
+  $('#fabLbl').textContent = t('fab'); $('#chatTitle').textContent = t('chatTitle');
+  $('#cin').placeholder = t('chatPh'); $('#cnote').textContent = t('chatNote');
+  $('#csugg').innerHTML = t('chatSugg').map(s=>`<button type="button" data-act="chat-sugg">${esc(s)}</button>`).join('');
+}
+function render(){
+  const h = location.hash.slice(1) || '/';
+  const [path, qs] = h.split('?'); const p = path.split('/').filter(Boolean); const q = new URLSearchParams(qs||'');
+  let html, r = p[0]||'';
+  switch(r){
+    case '': html = viewHome(); break;
+    case 'new': html = viewNew(); break;
+    case 'kb': html = viewKb(p[1]); break;
+    case 'article': html = viewArticle(p[1]); break;
+    case 'search': html = viewSearch(q.get('q')||'', {cat:q.get('cat')||'',type:q.get('type')||'',dev:q.get('dev')||''}); break;
+    case 'smax': html = viewSmax(); break;
+    case 'top': html = viewTop(); break;
+    case 'contacts': html = viewContacts(); break;
+    case 'admin': html = viewAdmin(); break;
+    default: html = viewNotFound();
+  }
+  renderChrome(r);
+  $('#app').innerHTML = html;
+  $('#hdr').classList.remove('open');
+  const h1 = $('#app h1'); document.title = (h1 && r ? h1.textContent.replace(/^[^\wА-Яа-яӘ-ӨҚ-Ү]+/,'')+' — ' : '') + 'IT F.A.Q.';
+}
+let lastPath = '';
+window.addEventListener('hashchange', ()=>{ const path=location.hash.split('?')[0]; render(); if(path!==lastPath) window.scrollTo(0,0); lastPath=path; });
+
+/* ============================================================
+   Действия
+   ============================================================ */
+function toast(msg){ const d=document.createElement('div'); d.textContent=msg; $('#toast').appendChild(d); setTimeout(()=>d.remove(),3200); }
+async function copy(text){ try{ await navigator.clipboard.writeText(text); }catch(e){ const ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy')}catch(_){} ta.remove(); } toast(t('copied')); }
+function openModal(html){ $('#mbody').innerHTML = html; $('#modal').hidden = false; const f=$('#mbody input,#mbody textarea,#mbody select'); f && f.focus(); }
+function closeModal(){ $('#modal').hidden = true; }
+function smaxModal({id,cat,type}={}){
+  const a = id && art(id);
+  cat = cat || (a ? a.smax : 'Общие вопросы → Консультация');
+  type = type || (a && a.type==='problem' ? 'inc' : (cat.startsWith('Доступы')||cat.includes('Установка')||cat.includes('Выдача')||cat.includes('Консультация')) ? 'req' : 'inc');
+  const tpl = `Тема: ${a?title(a)+' — не помогла инструкция':'<кратко: что не работает>'}\nЧто делал(а): \nЧто ожидал(а): \nЧто произошло (текст ошибки): \nС какого времени: \nИнвентарный номер ПК: \nТелефон для связи: ${a?`\nСтатья портала: ${title(a)} (${location.href.split('#')[0]}#/article/${a.id})`:''}`;
+  window._smaxTpl = tpl; window._smaxCat = cat;
+  openModal(`<h2>🎫 ${t('smaxModal')}</h2>
+   <div class="field"><span>${t('smaxCatL')}</span><b>${esc(cat)}</b></div>
+   <div class="field"><span>${t('smaxTypeL')}</span><span><span class="badge ${type==='inc'?'bad':'blue'}">${t(type)}</span></span></div>
+   <label class="field"><span>${t('smaxTpl')}</span><textarea id="smaxTplTa" rows="9">${esc(tpl)}</textarea></label>
+   <div class="flex"><button class="btn" data-act="copy-smax">📋 ${t('copyText')}</button><button class="btn primary" data-act="open-smax">${t('openSmax')}</button></div>
+   ${CONFIG.smaxUrl?'':`<p class="small muted mt">ℹ️ ${t('smaxDemo')}</p>`}`);
+}
+function newArticleModal(){
+  openModal(`<h2>✍️ ${t('naTitle')}</h2><form id="naForm">
+   <label class="field"><span>${t('naT')}</span><input name="t" required maxlength="140"></label>
+   <label class="field"><span>${t('naCat')}</span><select name="cat">${Object.keys(CATS).map(k=>`<option value="${k}">${esc(L(CATS[k]))}</option>`).join('')}</select></label>
+   <label class="field"><span>${t('naWho')}</span><input name="who" maxlength="140"></label>
+   <label class="field"><span>${t('naTldr')}</span><textarea name="tldr" rows="2" maxlength="400"></textarea></label>
+   <label class="field"><span>${t('naSteps')}</span><textarea name="steps" rows="6"></textarea></label>
+   <label class="field"><span>${t('naCheck')}</span><input name="check" maxlength="200"></label>
+   <label class="field"><span>${t('naTags')}</span><input name="tags" maxlength="200"></label>
+   <button class="btn primary" type="submit">${t('naSubmit')}</button></form>`);
+}
+
+document.addEventListener('click', e=>{
+  const el = e.target.closest('[data-act]');
+  if(!el){ if(!e.target.closest('.sbox')) document.querySelectorAll('.ac').forEach(x=>x.hidden=true); return; }
+  const act = el.dataset.act;
+  switch(act){
+    case 'menu': $('#hdr').classList.toggle('open'); break;
+    case 'lang': state.lang = el.dataset.l; store.set('lang',state.lang); render(); if(!$('#chat').hidden) resetChatIfEmpty(); break;
+    case 'scroll': { const s=document.getElementById(el.dataset.to); s && s.scrollIntoView({behavior:'smooth'}); break; }
+    case 'copylink': copy(location.href).then(()=>{}); break;
+    case 'print': window.print(); break;
+    case 'smax': smaxModal({id:el.dataset.id, cat:el.dataset.cat, type:el.dataset.type}); break;
+    case 'copy-smax': copy($('#smaxTplTa').value); break;
+    case 'open-smax': if(CONFIG.smaxUrl) window.open(CONFIG.smaxUrl+'?category='+encodeURIComponent(window._smaxCat),'_blank','noopener'); else toast(t('smaxDemo')); break;
+    case 'copy-tpl': copy(TEMPLATES[+el.dataset.i].text); break;
+    case 'modal-close': closeModal(); break;
+    case 'banner-off': store.set('bannerOff',today()); el.closest('.banner').remove(); break;
+    case 'vote': {
+      const id = el.dataset.id, v = el.dataset.v; const votes = store.get('votes',{}); if(votes[id]) break;
+      votes[id] = v; store.set('votes',votes); toast(t('thanks'));
+      const box = $('#rate'); if(v==='down') box.innerHTML = feedbackForm(art(id)); else box.innerHTML = rateWidget(art(id));
+      break; }
+    case 'period': state.period = el.dataset.p; render(); break;
+    case 'pin': case 'hide': {
+      const ov = store.get('topov',{pin:[],hide:[]}); const key = act==='pin'?'pin':'hide'; const id = el.dataset.id;
+      ov[key] = ov[key].includes(id) ? ov[key].filter(x=>x!==id) : [...ov[key],id]; store.set('topov',ov); render(); break; }
+    case 'ask-ai': openChat(el.dataset.q); break;
+    case 'chat-open': openChat(); break;
+    case 'chat-close': $('#chat').hidden = true; $('#chatFab').hidden = false; break;
+    case 'chat-sugg': sendChat(el.textContent); break;
+    case 'ai-vote': aiVote(el); break;
+    case 'new-article': newArticleModal(); break;
+    case 'approve': case 'reject': {
+      const drafts = store.get('drafts',[]); const d = drafts.find(x=>x.id===el.dataset.id); if(!d) break;
+      if(act==='approve'){ d.status='pub'; const a={...d}; delete a.status; a.st='pub'; const pubs=store.get('published',[]); pubs.push(a); store.set('published',pubs); ARTICLES.push(a); reindexIds(); buildIndex(); toast(t('published')); }
+      else { d.status='draft'; toast(t('returned')); }
+      store.set('drafts',drafts); render(); break; }
+  }
+});
+document.addEventListener('change', e=>{
+  const el = e.target;
+  if(el.id==='roleSel'){ state.role = el.value; store.set('role',state.role); render(); return; }
+  if(el.dataset.chk){ const st=store.get('checklist',{}); st[el.dataset.chk]=el.checked; store.set('checklist',st);
+    if(location.hash.startsWith('#/new')){ el.closest('li').classList.toggle('done',el.checked); const p=checklistProgress(); $('#prgTxt').textContent=`${p.d}/${p.n}`; $('#prgBar').style.width=p.pct+'%'; } else render(); return; }
+  if(el.dataset.filter){ const h=location.hash.slice(1); const [path,qs]=h.split('?'); const q=new URLSearchParams(qs||''); el.value?q.set(el.dataset.filter,el.value):q.delete(el.dataset.filter); location.hash='#'+path+'?'+q.toString(); return; }
+  if(el.dataset.fbstatus){ const fb=store.get('feedback',SEED_FB); const f=fb.find(x=>x.id===el.dataset.fbstatus); if(f){ f.status=el.value; store.set('feedback',fb); toast('✔'); } }
+});
+document.addEventListener('submit', e=>{
+  const f = e.target;
+  if(f.matches('[data-search]')){ e.preventDefault(); const q=f.q.value.trim(); if(!q) return; const sel=f.querySelector('.ac a.sel'); if(sel){ location.hash=sel.getAttribute('href'); return; } lastLoggedEmpty=''; location.hash='#/search?q='+encodeURIComponent(q); return; }
+  if(f.id==='fbForm'){ e.preventDefault(); const reasons=[...f.querySelectorAll('input[name=r]:checked')].map(i=>i.value); const comment=f.c.value.trim();
+    if(!reasons.length && !comment){ toast(t('pickReason')); return; }
+    const fb=store.get('feedback',SEED_FB); fb.push({id:'f'+Date.now(),art:f.dataset.id,reasons,comment,date:today(),status:'new'}); store.set('feedback',fb);
+    toast('🔔 '+t('fbSent')); $('#rate').innerHTML = rateWidget(art(f.dataset.id)); return; }
+  if(f.id==='naForm'){ e.preventDefault(); const steps=f.steps.value.split('\n').map(s=>s.trim()).filter(Boolean).slice(0,10);
+    if(!f.t.value.trim() || !f.tldr.value.trim() || steps.length<2){ toast(t('naFill')); return; }
+    const d={id:'u'+Date.now(),cat:f.cat.value,type:'guide',dev:['any'],upd:today(),au:'l2',v:0,up:0,dn:0,smax:'Общие вопросы → Консультация',status:'pending',
+      t:{ru:f.t.value.trim()},tags:f.tags.value.trim()||'',ru:{who:f.who.value.trim(),tldr:f.tldr.value.trim(),need:[],steps,check:f.check.value.trim(),errors:[]}};
+    const drafts=store.get('drafts',[]); drafts.push(d); store.set('drafts',drafts); closeModal(); toast('🔔 '+t('naSent')); if(location.hash.startsWith('#/admin')) render(); return; }
+  if(f.id==='cform'){ e.preventDefault(); const v=$('#cin').value.trim(); if(v){ $('#cin').value=''; sendChat(v); } }
+});
+
+/* автодополнение в строке поиска */
+let acTimer;
+document.addEventListener('input', e=>{
+  if(!e.target.classList.contains('js-search')) return;
+  const inp = e.target, ac = inp.parentElement.querySelector('.ac');
+  clearTimeout(acTimer);
+  acTimer = setTimeout(()=>{
+    const q = inp.value.trim(); if(q.length<2){ ac.hidden=true; return; }
+    const {res,matched} = search(q);
+    ac.innerHTML = res.length ? res.slice(0,6).map(r=>{ const a=art(r.id); return `<a href="#/article/${a.id}">${hl(title(a),matched)}<small>${CATS[a.cat].ic} ${esc(L(CATS[a.cat]))}</small></a>`; }).join('')
+      : `<a href="javascript:void 0" data-act="ask-ai" data-q="${esc(q)}">🤖 ${t('noResultsAc')}</a>`;
+    ac.hidden = false;
+  }, 120);
+});
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape'){ if(!$('#modal').hidden) closeModal(); document.querySelectorAll('.ac').forEach(x=>x.hidden=true); }
+  if(!e.target.classList.contains('js-search')) return;
+  const ac = e.target.parentElement.querySelector('.ac'); if(ac.hidden) return;
+  const items=[...ac.querySelectorAll('a')]; let i=items.findIndex(x=>x.classList.contains('sel'));
+  if(e.key==='ArrowDown'||e.key==='ArrowUp'){ e.preventDefault(); items[i]&&items[i].classList.remove('sel'); i = e.key==='ArrowDown' ? (i+1)%items.length : (i-1+items.length)%items.length; items[i].classList.add('sel'); }
+});
+$('#modal').addEventListener('click', e=>{ if(e.target.id==='modal') closeModal(); });
+
+/* ============================================================
+   AI-ассистент (имитация Copilot Studio: отвечает только по статьям портала)
+   ============================================================ */
+const T2 = (lng,k) => I18N[lng][k] ?? I18N.ru[k];
+function addMsg(who, html){ const d=document.createElement('div'); d.className='msg '+who; d.innerHTML=html; $('#cmsgs').appendChild(d); $('#cmsgs').scrollTop=1e9; return d; }
+function resetChatIfEmpty(){ if($('#cmsgs').children.length<=1){ $('#cmsgs').innerHTML=''; addMsg('bot',`<p>${esc(t('chatHello'))}</p>`); } }
+function openChat(q){
+  $('#chat').hidden = false; $('#chatFab').hidden = true;
+  if(!$('#cmsgs').children.length) addMsg('bot',`<p>${esc(t('chatHello'))}</p>`);
+  if(q) sendChat(q); else $('#cin').focus();
+}
+function sendChat(text){
+  addMsg('user', esc(text));
+  const typing = addMsg('bot','<span class="typing"><span></span><span></span><span></span></span>');
+  setTimeout(()=>{ typing.remove(); addMsg('bot', botAnswer(text)); }, 650);
+}
+function botAnswer(q){
+  const lng = /[әғқңөұүһі]/i.test(q) ? 'kz' : /[а-яё]/i.test(q) ? 'ru' : state.lang;
+  const n = norm(q);
+  if(/(парол|password|құпиясөз)\w*\s*[:=]|мой пароль\s+\S|менің құпиясөзім\s+\S|my password is/i.test(q)) return `<p>🔐 ${esc(T2(lng,'ai_pwd'))}</p>`;
+  if(/^(привет|здравствуй|здравствуйте|добрый день|сәлем|салем|сәлеметсіз бе|hello|hi)\b/.test(n) && tokenize(q).length<=2) return `<p>${esc(T2(lng,'ai_hi'))}</p>`;
+  if(/(спасибо|благодарю|рахмет|рақмет|thanks)/.test(n) && tokenize(q).length<=3) return `<p>${esc(T2(lng,'ai_thx'))}</p>`;
+  const {res} = search(q); const best = res[0];
+  if(!best || best.score<2 || best.cov<0.5){
+    const ai = store.get('aiMissed',SEED_AI); ai.push({q,date:today()}); store.set('aiMissed',ai);
+    const cat = best ? art(best.id).smax : 'Общие вопросы → Консультация';
+    return `<p>${esc(T2(lng,'ai_none'))}</p><p>${T2(lng,'ai_cat')}: <b>${esc(cat)}</b></p><button class="btn sm primary" data-act="smax" data-cat="${esc(cat)}">🎫 ${T2(lng,'createTicket')}</button>`;
+  }
+  const a = art(best.id); const useKz = lng==='kz' && a.kz; const c = useKz ? a.kz : a.ru;
+  const ttl = a.t[lng] || a.t.ru; const steps = c.steps.slice(0,5);
+  const also = res.slice(1,3).filter(r=>r.score>=2).map(r=>art(r.id));
+  return `<p>${T2(lng,'ai_found')}</p>${lng==='kz'&&!a.kz?`<p class="small muted">${T2(lng,'ai_kzfb')}</p>`:''}
+    <p><b>${esc(ttl)}</b><br>${esc(c.tldr)}</p><ol>${steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol>${c.steps.length>5?`<p class="small">${T2(lng,'ai_more')}</p>`:''}
+    <div class="src">📄 ${T2(lng,'ai_src')}: <a href="#/article/${a.id}">${esc(ttl)}</a>${also.length?`<br>${T2(lng,'ai_also')} ${also.map(x=>`<a href="#/article/${x.id}">${esc(x.t[lng]||x.t.ru)}</a>`).join(', ')}`:''}</div>
+    <div class="aifb" data-lng="${lng}" data-id="${a.id}">${T2(lng,'ai_helped')} <button data-act="ai-vote" data-v="up">👍</button><button data-act="ai-vote" data-v="down">👎</button></div>`;
+}
+function aiVote(btn){
+  const box = btn.closest('.aifb'); const lng = box.dataset.lng; const a = art(box.dataset.id);
+  box.innerHTML = btn.dataset.v==='up' ? '✔' : '✖';
+  if(btn.dataset.v==='up') addMsg('bot',`<p>${esc(T2(lng,'ai_ok'))}</p>`);
+  else addMsg('bot',`<p>${esc(T2(lng,'ai_sorry'))} <b>${esc(a.smax)}</b></p><button class="btn sm primary" data-act="smax" data-id="${a.id}">🎫 ${T2(lng,'createTicket')}</button>`);
+}
+$('#cmsgs').addEventListener('click', e=>{ if(e.target.closest('a[href^="#/"]') && window.innerWidth<600){ $('#chat').hidden=true; $('#chatFab').hidden=false; } });
+
+render(); lastPath = location.hash.split('?')[0];
+</script>
+</body>
+</html>
